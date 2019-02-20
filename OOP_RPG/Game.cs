@@ -13,12 +13,14 @@ namespace OOP_RPG
 
         public void Start()
         {
+            Console.Clear();
             Console.WriteLine("Welcome hero!");
             Console.WriteLine("Please enter your name:");
 
-            Hero.Name = Console.ReadLine();
-
-            Console.WriteLine("Hello " + Hero.Name);
+            Hero.Name =  Console.ReadLine().ToUpper();
+            Console.WriteLine("----------------------------------------------------------------------------------------------");
+            Console.WriteLine($"Hello, {Hero.Name}!");
+            Console.WriteLine("----------------------------------------------------------------------------------------------");
 
             Main();
         }

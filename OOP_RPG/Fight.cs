@@ -123,9 +123,11 @@ namespace OOP_RPG
                 enemy = Monsters[randomNumber];
             }
 
+            Console.WriteLine("----------------------------------------------------------------------------------------------");
+
             if (enemy.Diffculty == "Hard")
             {
-                Console.WriteLine($"Becareful! '{enemy.Name}' is {enemy.Diffculty} than you think.");
+                Console.WriteLine($" Becareful! '{enemy.Name}' is {enemy.Diffculty} than you think.");
             } else
             {
                 Console.WriteLine($" '{enemy.Name}' is {enemy.Diffculty} ");
@@ -133,10 +135,10 @@ namespace OOP_RPG
                        
             while (enemy.CurrentHP > 0 && Hero.CurrentHP > 0)
             {
-                Console.WriteLine($"{Hero.Name}, got Strength({Hero.Strength}), Defense({Hero.Defense}), HP({Hero.CurrentHP})");
-                Console.WriteLine($"You've encountered a {enemy.Name}! Strength({enemy.Strength}), Defense({enemy.Defense}), HP({enemy.CurrentHP}), What will you do?");
+                Console.WriteLine($" {Hero.Name}, you got the power : Strength({Hero.Strength}), Defense({Hero.Defense}), HP({Hero.CurrentHP})");
+                Console.WriteLine($" You've encountered a {enemy.Name} monster! : Strength({enemy.Strength}), Defense({enemy.Defense}), HP({enemy.CurrentHP}), What will you do?");
 
-                Console.WriteLine("-------------------------------------------------------------------------------------------");
+                Console.WriteLine("----------------------------------------------------------------------------------------------");
                 Console.WriteLine("1. Fight");
 
                 var input = Console.ReadLine();
@@ -172,7 +174,7 @@ namespace OOP_RPG
                 heroDamage = comparedValueOfHero;
                 enemy.CurrentHP -= heroDamage;
             }
-            Console.WriteLine("--------------------------------------------------------------------");
+            Console.WriteLine("----------------------------------------------------------------------------------------------");
 
             //Hero attack message
             Console.WriteLine($"You attack enemy, enemy got {heroDamage} damage(s)! ");
@@ -191,7 +193,7 @@ namespace OOP_RPG
 
             Console.WriteLine($"'{enemy.Name}' does {enemyDamage} damage(s) to Hero !");
 
-            Console.WriteLine("--------------------------------------------------------------------");
+            Console.WriteLine("----------------------------------------------------------------------------------------------");
 
             //Show the messages for winner and looser 
             if (enemy.CurrentHP <= 0)
@@ -204,8 +206,13 @@ namespace OOP_RPG
             else if (hero.CurrentHP <= 0)
             {
                 Console.WriteLine($"You've been defeated against {enemy.Name}! :( GAME OVER.");
-                Console.WriteLine("Press any key to Exit the game");
+                Console.WriteLine("Press any key to restart the game");
                 Console.ReadKey();
+
+                //Restart the game
+                var game = new Game();
+
+                game.Start();
             }
         }
     }
