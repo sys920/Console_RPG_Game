@@ -28,7 +28,7 @@ namespace OOP_RPG
             var input = "0";
 
             while (input != "4")
-            {
+            {                
                 Console.WriteLine("Please choose an option by entering a number.");
                 Console.WriteLine("1. View Stats");
                 Console.WriteLine("2. View Inventory");
@@ -47,9 +47,9 @@ namespace OOP_RPG
                 }
                 else if (input == "3")
                 {
+                    
                     this.Fight();
                 }
-
                 if (Hero.CurrentHP <= 0)
                 {
                     return;
@@ -62,7 +62,7 @@ namespace OOP_RPG
             Hero.ShowStats();
 
             Console.WriteLine("Press any key to return to main menu.");
-            Console.ReadKey();
+            Console.ReadKey();           
         }
 
         private void Inventory()
@@ -76,8 +76,7 @@ namespace OOP_RPG
         private void Fight()
         {
             var fight = new Fight(Hero);
-
             fight.Start();
-        }
+        }        
     }
 }

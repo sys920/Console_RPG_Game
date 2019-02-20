@@ -5,3 +5,10 @@ C:\Users\guilherme.guizado\Desktop\OOP_RPG-master\OOP_RPG-master\OOP_RPG\bin\Deb
 C:\Users\guilherme.guizado\Desktop\OOP_RPG-master\OOP_RPG-master\OOP_RPG\bin\Debug\OOP_RPG.pdb
 C:\Users\guilherme.guizado\Desktop\OOP_RPG-master\OOP_RPG-master\OOP_RPG\obj\Debug\OOP_RPG.exe
 C:\Users\guilherme.guizado\Desktop\OOP_RPG-master\OOP_RPG-master\OOP_RPG\obj\Debug\OOP_RPG.pdb
+C:\Users\SD49\Documents\SD 180 Document_MVC\Assignment\OOP_RPG-master\OOP_RPG\bin\Debug\OOP_RPG.exe.config
+C:\Users\SD49\Documents\SD 180 Document_MVC\Assignment\OOP_RPG-master\OOP_RPG\bin\Debug\OOP_RPG.exe
+C:\Users\SD49\Documents\SD 180 Document_MVC\Assignment\OOP_RPG-master\OOP_RPG\bin\Debug\OOP_RPG.pdb
+C:\Users\SD49\Documents\SD 180 Document_MVC\Assignment\OOP_RPG-master\OOP_RPG\obj\Debug\OOP_RPG.csprojAssemblyReference.cache
+C:\Users\SD49\Documents\SD 180 Document_MVC\Assignment\OOP_RPG-master\OOP_RPG\obj\Debug\OOP_RPG.csproj.CoreCompileInputs.cache
+C:\Users\SD49\Documents\SD 180 Document_MVC\Assignment\OOP_RPG-master\OOP_RPG\obj\Debug\OOP_RPG.exe
+C:\Users\SD49\Documents\SD 180 Document_MVC\Assignment\OOP_RPG-master\OOP_RPG\obj\Debug\OOP_RPG.pdb
