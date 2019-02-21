@@ -5,10 +5,12 @@ namespace OOP_RPG
     public class Game
     {
         public Hero Hero { get; }
+        public Monster Monster { get; set; }
 
         public Game()
         {
             Hero = new Hero();
+            
         }
 
         public void Start()
@@ -77,8 +79,11 @@ namespace OOP_RPG
 
         private void Fight()
         {
-            var fight = new Fight(Hero);
+            var monsterSelection = new MonsterSelector();
+            var enemy = monsterSelection.SelectByRandomBaseOnWeekDay();
+            var fight = new Fight(Hero, enemy);
             fight.Start();
         }        
     }
 }
+

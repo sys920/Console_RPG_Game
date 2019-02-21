@@ -48,6 +48,8 @@
     <Compile Include="Game.cs" />
     <Compile Include="Hero.cs" />
     <Compile Include="Monster.cs" />
+    <Compile Include="MonsterLevel.cs" />
+    <Compile Include="MonsterSelector.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Weapon.cs" />
