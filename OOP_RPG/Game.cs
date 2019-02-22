@@ -32,14 +32,17 @@ namespace OOP_RPG
             var input = "0";
 
             while (input != "5")
-            {                
-                Console.WriteLine("Please choose an option by entering a number.");
+            {
+                Console.Clear();
+                Console.WriteLine("----------------------------------------------------------------------------------------------");
+                Console.WriteLine($"***** Role Playing Game Menu  *****");
+                Console.WriteLine("----------------------------------------------------------------------------------------------");
                 Console.WriteLine("1. View Stats");
                 Console.WriteLine("2. View Inventory");
                 Console.WriteLine("3. Fight Monster");
                 Console.WriteLine("4. Items Shop");
                 Console.WriteLine("5. Exit");
-
+                Console.Write("Selet the number of menu : ");
                 input = Console.ReadLine();
 
                 if (input == "1")
@@ -58,8 +61,8 @@ namespace OOP_RPG
                 {
                     this.BuyItem();
                 }
-
-
+                
+                //When Hero lose the game, exit
                 if (Hero.CurrentHP <= 0)
                 {
                     return;
@@ -95,6 +98,7 @@ namespace OOP_RPG
         {
             var ItemShop = new ItemShop(Hero);
             ItemShop.Start();
+            Console.WriteLine("Press any key to return to main menu.");
             Console.ReadKey();
         }
     }

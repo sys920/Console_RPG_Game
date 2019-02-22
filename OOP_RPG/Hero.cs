@@ -29,38 +29,106 @@ namespace OOP_RPG
         {
             ArmorsBag = new List<Armor>();
             WeaponsBag = new List<Weapon>();
-            Strength = 20;
-            Defense = 20;
-            OriginalHP = 40;
-            CurrentHP = 40;
+            Strength = 5;
+            Defense = 4;
+            OriginalHP = 15;
+            CurrentHP = 15;
             GoldCoin = 10;
         }
 
         //These are the Methods of our Class.
         public void ShowStats()
         {
-            Console.WriteLine("*****" + this.Name + "*****");
-            Console.WriteLine("Strength: " + this.Strength);
-            Console.WriteLine("Defense: " + this.Defense);
-            Console.WriteLine("Hitpoints: " + this.CurrentHP + "/" + this.OriginalHP);
-            Console.WriteLine("Gold coins: " + this.GoldCoin);
+            Console.Clear();
+            Console.WriteLine("----------------------------------------------------------------------------------------------");
+            Console.WriteLine($"***** HERO { this.Name}'s STATS *****");
+            Console.WriteLine("----------------------------------------------------------------------------------------------");
+
+            if (this.EquippedWeapon != null)
+            {
+                Console.WriteLine($"# Strength: {this.Strength} (+{EquippedWeapon.Strength})");
+            }
+            else
+            {
+                Console.WriteLine("# Strength: " + this.Strength);
+            }
+
+
+            if (this.EquippedArmor != null)
+            {
+                Console.WriteLine($"# Defense: {this.Defense} (+{EquippedArmor.Defense})");
+            }
+            else
+            {
+                Console.WriteLine("# Defense: " + this.Defense);
+            }
+
+            Console.WriteLine("# Hitpoints: " + this.CurrentHP + "/" + this.OriginalHP);
+            Console.WriteLine("# Gold coins: " + this.GoldCoin);
+            Console.WriteLine("----------------------------------------------------------------------------------------------");
         }
 
         public void ShowInventory()
         {
-            Console.WriteLine("*****  INVENTORY ******");
-            Console.WriteLine("Weapons: ");
+            Console.Clear();
+            Console.WriteLine("----------------------------------------------------------------------------------------------");
+            Console.WriteLine($"*****  HERO { this.Name}'s INVENTORY ******");
+            Console.WriteLine("----------------------------------------------------------------------------------------------");
+            Console.WriteLine("# Weapon(s) you bought :");
 
+            var weaponNumber = 1;
             foreach (var weapon in this.WeaponsBag)
             {
-                Console.WriteLine(weapon.Name + " of " + weapon.Strength + " Strength");
+                Console.WriteLine($"{weaponNumber}. {weapon.Name} : {weapon.Strength} Strength");
+                weaponNumber += 1;
             }
 
-            Console.WriteLine("Armor: ");
-
+            Console.WriteLine("# Armor(s) you bought:");
+            var armorNumber = 1;
             foreach (var armor in this.ArmorsBag)
             {
-                Console.WriteLine(armor.Name + " of " + armor.Defense + " Defense");
+                Console.WriteLine($"{armorNumber}. {armor.Name} : {armor.Defense} Defense");
+                armorNumber += 1;
+            }
+            Console.WriteLine("----------------------------------------------------------------------------------------------");
+            Console.WriteLine("# Current hero equiped item(s):");
+            if (EquippedWeapon != null)
+            {
+                Console.WriteLine($">>{EquippedWeapon.Name} - {EquippedWeapon.Strength} Strenth");
+            }
+            
+            if (EquippedArmor != null)
+            {
+                Console.WriteLine($">>{EquippedArmor.Name} - {EquippedArmor.Defense} Defense");
+            }
+        
+
+            Console.WriteLine("----------------------------------------------------------------------------------------------");
+
+            Console.WriteLine("1-Equip Weapon");
+            Console.WriteLine("2-UnEquip Weapon");
+            Console.WriteLine("3-Equip Armors");
+            Console.WriteLine("4-UnEquip Armors");
+            Console.WriteLine("----------------------------------------------------------------------------------------------");
+            Console.Write("Selct the menu : ");
+
+            var KeyInput = Console.ReadLine();
+
+            if (KeyInput == "1")
+            {               
+                EquipWeapon();
+            }
+            else if (KeyInput == "2")
+            {
+                UnEquipWeapon();
+            }
+            else if (KeyInput == "3")
+            {
+                EquipArmor();
+            }
+            else if (KeyInput == "4")
+            {
+                UnEquipArmor();
             }
         }
 
@@ -68,7 +136,42 @@ namespace OOP_RPG
         {
             if (WeaponsBag.Any())
             {
-                this.EquippedWeapon = this.WeaponsBag[0];
+                Console.WriteLine("----------------------------------------------------------------------------------------------");
+                Console.Write("Type the Weapon ID to equip : ");
+
+                var KeyInput = GetUserInputNumber();
+                
+                if (KeyInput > WeaponsBag.Count() || KeyInput <= 0 )
+                {
+                    Console.WriteLine("Type corrent the Weapon ID !");
+                }
+                else
+                {
+                    this.EquippedWeapon = this.WeaponsBag[KeyInput - 1];
+                    Console.WriteLine($"{WeaponsBag[KeyInput - 1].Name} is equipped ");
+                }
+          
+                Console.WriteLine("----------------------------------------------------------------------------------------------");
+        
+            }
+            else
+            {
+                Console.WriteLine("You don't have any weapon, buy a weapon first at the item shop");
+                Console.ReadKey();
+            }
+        }
+
+        public void UnEquipWeapon()
+        {
+            if (this.EquippedWeapon != null)
+            {                             
+                Console.WriteLine($"{this.EquippedWeapon.Name} is now unequipped ");
+                this.EquippedWeapon = null;
+            }
+            else
+            {
+                Console.WriteLine("You don't have any weapon equiped");
+                Console.ReadKey();
             }
         }
 
@@ -76,8 +179,64 @@ namespace OOP_RPG
         {
             if (ArmorsBag.Any())
             {
-                this.EquippedArmor = this.ArmorsBag[0];
+                Console.WriteLine("----------------------------------------------------------------------------------------------");
+                Console.WriteLine("Type the armor ID you want to equip : ");
+                var KeyInput = GetUserInputNumber();
+
+                if (KeyInput > ArmorsBag.Count() || KeyInput <=0 )
+                {
+                    Console.WriteLine("Type corrent the Armor ID !");
+                }
+                else
+                {
+                    this.EquippedArmor = this.ArmorsBag[KeyInput - 1];
+                    Console.WriteLine($"{ArmorsBag[KeyInput - 1].Name} is equipped ");
+                }
+                
+                Console.WriteLine("----------------------------------------------------------------------------------------------");
+               
             }
+            else
+            {
+                Console.WriteLine("You don't have any armor, buy a weapon first at the item shop");
+                Console.ReadKey();
+            }
+        }
+
+        public void UnEquipArmor()
+        {
+            if (this.EquippedArmor != null)
+            {
+                Console.WriteLine($"{this.EquippedArmor.Name} is now unequipped ");
+                this.EquippedArmor = null;
+            }
+            else
+            {
+                Console.WriteLine("You don't have any armor equiped");
+                Console.ReadKey();
+            }
+        }
+
+        public int GetUserInputNumber()
+        {
+            //Checking validation the date pickup
+            bool inputnumberValid = false;
+            int keyInputResult = 0;
+            
+            while (inputnumberValid != true)
+            {
+               
+                if (int.TryParse(Console.ReadLine(), out keyInputResult))
+                {
+                    inputnumberValid = true;
+                }
+                else
+                {
+                    Console.Write("Type the number only !:");
+                   
+                }
+            }
+            return keyInputResult;
         }
     }
 }

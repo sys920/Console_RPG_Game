@@ -17,19 +17,25 @@ namespace OOP_RPG
         }              
 
         public void Start()
-        {            
+        {
+            Console.Clear();
+            Console.WriteLine("----------------------------------------------------------------------------------------------");
+            Console.WriteLine($"***** HERO VS ENEMY *****");
             Console.WriteLine("----------------------------------------------------------------------------------------------");
 
-            Console.WriteLine($" '{Enemy.Name}' is {Enemy.Diffculty} Level");
+            Console.WriteLine($"# Remember monster '{Enemy.Name}' is {Enemy.Diffculty} Level");
                   
                        
             while (Enemy.CurrentHP > 0 && Hero.CurrentHP > 0)
             {
-                Console.WriteLine($" {Hero.Name}, you got the power : Strength({Hero.Strength}), Defense({Hero.Defense}), HP({Hero.CurrentHP})");
-                Console.WriteLine($" You've encountered a {Enemy.Name} monster! : Strength({Enemy.Strength}), Defense({Enemy.Defense}), HP({Enemy.CurrentHP}), What will you do?");
+                Console.WriteLine($"# {Hero.Name}, you got the power : Strength({Hero.Strength}), Defense({Hero.Defense}), HP({Hero.CurrentHP})");
+                Console.WriteLine($"# You've encountered a '{Enemy.Name}' monster! : Strength({Enemy.Strength}), Defense({Enemy.Defense}), HP({Enemy.CurrentHP})");
+
+                Console.WriteLine($"# What will you do?");
 
                 Console.WriteLine("----------------------------------------------------------------------------------------------");
                 Console.WriteLine("1. Fight");
+                Console.Write("Selet the number of menu : ");
 
                 var input = Console.ReadLine();
 
@@ -41,26 +47,33 @@ namespace OOP_RPG
         }
 
         private void HeroTurn()
-        {      
+        { 
+            //Calculator Damage 
             var DamageCompared = Hero.Strength - Enemy.Defense;
-            int heroDamage;
+            var finalDamage = DamageCompared;
 
-            //Case1. Hero Attack,  Hero Strength < Enemy Defense
+            //Calculator Damage when hero equiped Weapon  
+            if (Hero.EquippedWeapon != null)
+            {
+                DamageCompared = (Hero.Strength + Hero.EquippedWeapon.Strength) - Enemy.Defense;
+                finalDamage = DamageCalculator(DamageCompared);
+            }    
+                     
+            //Hero Attack,  Hero Strength < Enemy Defense
             if (DamageCompared <= 0)
             {
-                heroDamage = 1;
-                Enemy.CurrentHP -= heroDamage;
+                finalDamage = 1;
+                Enemy.CurrentHP -= finalDamage;
             }
             //Hero Hero Attack, Hero Strength > Enemy Defense
             else
             {
-                heroDamage = DamageCompared;
-                Enemy.CurrentHP -= heroDamage;
+                Enemy.CurrentHP -= finalDamage;
             }
             Console.WriteLine("----------------------------------------------------------------------------------------------");
 
             //Hero attack message
-            Console.WriteLine($"You attack enemy, enemy got {heroDamage} damage(s)! ");
+            Console.WriteLine($"# You attack enemy, enemy got {finalDamage} damage(s)! ");
 
             if (Enemy.CurrentHP <= 0)
             {
@@ -73,23 +86,30 @@ namespace OOP_RPG
         }
 
         private void MonsterTurn()
-        {            
-            var DamageCompared = Enemy.Strength - Hero.Defense;           
-            int enemyDamage;
+        {
+            //Calculator Damage 
+            var DamageCompared = Enemy.Strength - Hero.Defense ;
+            var finalDamage = DamageCompared;
 
+            //Calculator Damage when hero equiped armor  
+            if (Hero.EquippedArmor != null)
+            {
+                DamageCompared = Enemy.Strength - (Hero.Defense + Hero.EquippedArmor.Defense);
+                finalDamage = DamageCalculator(DamageCompared);
+            }
+            //Enemy Attack,  Enemy Strength < Hero Defense
             if (DamageCompared <= 0)
             {
-                enemyDamage = 1;
-                Hero.CurrentHP -= enemyDamage;
+                finalDamage = 1;
+                Hero.CurrentHP -= finalDamage;
             }
-            //Enemy  Attack  Enemy Strength < Hero Defense
+            //Enemy  Attack  Enemy Strength > Hero Defense
             else
             {
-                enemyDamage = DamageCompared;
-                Hero.CurrentHP -= enemyDamage;
+                Hero.CurrentHP -= finalDamage;
             }
 
-            Console.WriteLine($"'{Enemy.Name}' does {enemyDamage} damage(s) to Hero !");
+            Console.WriteLine($"# '{Enemy.Name}' does {finalDamage} damage(s) to Hero !");
 
             Console.WriteLine("----------------------------------------------------------------------------------------------");
             if (Hero.CurrentHP <= 0)
@@ -101,49 +121,61 @@ namespace OOP_RPG
         private void Win()
         {
             
-            Console.WriteLine($"{Enemy.Name} has been defeated! {Hero.Name} win(s) the battle!");
+            Console.WriteLine($"# {Enemy.Name} has been defeated! {Hero.Name} win(s) the battle!");
+            Console.WriteLine("----------------------------------------------------------------------------------------------");
 
-            var heroRewardGold = Calculator(Enemy.Diffculty);
+            var heroRewardGold = RewardCalculator(Enemy.Diffculty);
 
             Hero.GoldCoin= Hero.GoldCoin + heroRewardGold;
 
-            Console.WriteLine($"{Hero.Name}, Congratulations on winning the battle! you get the {heroRewardGold} Gold.");
-            Console.WriteLine($"Now you have Total {Hero.GoldCoin} Gold.");
-
+            Console.WriteLine($"# {Hero.Name}, Congratulations on winning the battle! you get the {heroRewardGold} Gold.");
+            Console.WriteLine($"# Now, you have total {Hero.GoldCoin} Gold.");
+            Console.WriteLine("----------------------------------------------------------------------------------------------");
+            Console.WriteLine("Press any key to return to main menu.");
+            Console.ReadKey();
         }
 
         private void Lose()
         {
-            Console.WriteLine("You've been defeated! :( GAME OVER.");
-            Console.WriteLine("Press any key to exit the game");
+            Console.WriteLine("# You've been defeated! :(  GAME OVER!!!");
+            Console.WriteLine("Press any key to restart the game");
             Console.ReadKey();
             var game = new Game();
             game.Start();
         }
 
-        private int Calculator(MonsterLevel diffculty)
+        private int RewardCalculator(MonsterLevel diffculty)
         {
             Random getRandomNumber = new Random();
             var getHeroGold = 0;
 
             if (diffculty.ToString() == "Easy")
             {
-                getHeroGold = getRandomNumber.Next(1, 11);
-                Console.WriteLine("Moster Easy" + getHeroGold);
+                getHeroGold = getRandomNumber.Next(1, 11);               
             }
             else if (diffculty.ToString() == "Medium")
             {
-                getHeroGold = getRandomNumber.Next(11, 21);
-                Console.WriteLine("Moster Medium" + getHeroGold);
+                getHeroGold = getRandomNumber.Next(11, 21);        
             }
             else if (diffculty.ToString() == "Hard")
             {
-                getHeroGold = getRandomNumber.Next(12, 31);
-                Console.WriteLine("Moster Hard" + getHeroGold);
+                getHeroGold = getRandomNumber.Next(12, 31);                
             }          
             
             return getHeroGold;
            
+        }
+
+        private int DamageCalculator(int DamageCompared)
+        {
+            var baseDamage = DamageCompared;
+            var MaximumDamage = Convert.ToInt32(baseDamage * 1.5);
+            var MinimumDamage = Convert.ToInt32(baseDamage * 0.5);
+
+            Random getRandomNumber = new Random();            
+            var finalDamage = getRandomNumber.Next(MinimumDamage, MaximumDamage + 1);
+            
+            return finalDamage;
         }
     }
 }
