@@ -8,12 +8,12 @@ namespace OOP_RPG
         private List<Monster> Monsters { get; set; }
         private Hero Hero { get; set; }
         private Monster Enemy { get; set; }
-
+                     
 
         public Fight(Hero hero, Monster enemy)
         {
             Hero = hero;
-            Enemy = enemy;            
+            Enemy = enemy;           
         }              
 
         public void Start()
@@ -100,7 +100,16 @@ namespace OOP_RPG
 
         private void Win()
         {
-            Console.WriteLine(Enemy.Name + " has been defeated! {Hero.Name} win(s) the battle!");
+            
+            Console.WriteLine($"{Enemy.Name} has been defeated! {Hero.Name} win(s) the battle!");
+
+            var heroRewardGold = Calculator(Enemy.Diffculty);
+
+            Hero.GoldCoin= Hero.GoldCoin + heroRewardGold;
+
+            Console.WriteLine($"{Hero.Name}, Congratulations on winning the battle! you get the {heroRewardGold} Gold.");
+            Console.WriteLine($"Now you have Total {Hero.GoldCoin} Gold.");
+
         }
 
         private void Lose()
@@ -110,6 +119,31 @@ namespace OOP_RPG
             Console.ReadKey();
             var game = new Game();
             game.Start();
-        }    
+        }
+
+        private int Calculator(MonsterLevel diffculty)
+        {
+            Random getRandomNumber = new Random();
+            var getHeroGold = 0;
+
+            if (diffculty.ToString() == "Easy")
+            {
+                getHeroGold = getRandomNumber.Next(1, 11);
+                Console.WriteLine("Moster Easy" + getHeroGold);
+            }
+            else if (diffculty.ToString() == "Medium")
+            {
+                getHeroGold = getRandomNumber.Next(11, 21);
+                Console.WriteLine("Moster Medium" + getHeroGold);
+            }
+            else if (diffculty.ToString() == "Hard")
+            {
+                getHeroGold = getRandomNumber.Next(12, 31);
+                Console.WriteLine("Moster Hard" + getHeroGold);
+            }          
+            
+            return getHeroGold;
+           
+        }
     }
 }

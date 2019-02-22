@@ -8,7 +8,7 @@ namespace OOP_RPG
 {
     class MonsterSelector
     {
-        private List<Monster> Monsters { get; set; }
+        private List<Monster> Monsters { get; set; } 
 
         public MonsterSelector()
         {

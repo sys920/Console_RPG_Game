@@ -16,6 +16,7 @@ namespace OOP_RPG
         public Armor EquippedArmor { get; private set; }
         public List<Armor> ArmorsBag { get; set; }
         public List<Weapon> WeaponsBag { get; set; }
+        public int GoldCoin { get; set; }
 
         /*This is a Constructor.
         When we create a new object from our Hero class, the instance of this class, our hero, has:
@@ -28,10 +29,11 @@ namespace OOP_RPG
         {
             ArmorsBag = new List<Armor>();
             WeaponsBag = new List<Weapon>();
-            Strength = 8;
-            Defense = 10;
-            OriginalHP = 20;
-            CurrentHP = 20;
+            Strength = 20;
+            Defense = 20;
+            OriginalHP = 40;
+            CurrentHP = 40;
+            GoldCoin = 10;
         }
 
         //These are the Methods of our Class.
@@ -41,6 +43,7 @@ namespace OOP_RPG
             Console.WriteLine("Strength: " + this.Strength);
             Console.WriteLine("Defense: " + this.Defense);
             Console.WriteLine("Hitpoints: " + this.CurrentHP + "/" + this.OriginalHP);
+            Console.WriteLine("Gold coins: " + this.GoldCoin);
         }
 
         public void ShowInventory()

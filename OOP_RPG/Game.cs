@@ -6,11 +6,11 @@ namespace OOP_RPG
     {
         public Hero Hero { get; }
         public Monster Monster { get; set; }
+       
 
         public Game()
         {
             Hero = new Hero();
-            
         }
 
         public void Start()
@@ -31,13 +31,14 @@ namespace OOP_RPG
         {
             var input = "0";
 
-            while (input != "4")
+            while (input != "5")
             {                
                 Console.WriteLine("Please choose an option by entering a number.");
                 Console.WriteLine("1. View Stats");
                 Console.WriteLine("2. View Inventory");
                 Console.WriteLine("3. Fight Monster");
-                Console.WriteLine("4. Exit");
+                Console.WriteLine("4. Items Shop");
+                Console.WriteLine("5. Exit");
 
                 input = Console.ReadLine();
 
@@ -50,10 +51,15 @@ namespace OOP_RPG
                     this.Inventory();
                 }
                 else if (input == "3")
-                {
-                    
+                {                    
                     this.Fight();
                 }
+                else if (input == "4")
+                {
+                    this.BuyItem();
+                }
+
+
                 if (Hero.CurrentHP <= 0)
                 {
                     return;
@@ -83,7 +89,14 @@ namespace OOP_RPG
             var enemy = monsterSelection.SelectByRandomBaseOnWeekDay();
             var fight = new Fight(Hero, enemy);
             fight.Start();
-        }        
+        }
+        
+        private void BuyItem()
+        {
+            var ItemShop = new ItemShop(Hero);
+            ItemShop.Start();
+            Console.ReadKey();
+        }
     }
 }
 
