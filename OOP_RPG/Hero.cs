@@ -29,11 +29,11 @@ namespace OOP_RPG
         {
             ArmorsBag = new List<Armor>();
             WeaponsBag = new List<Weapon>();
-            Strength = 5;
-            Defense = 4;
+            Strength = 10;
+            Defense = 8;
             OriginalHP = 15;
             CurrentHP = 15;
-            GoldCoin = 10;
+            GoldCoin = 5;
         }
 
         //These are the Methods of our Class.
@@ -74,7 +74,7 @@ namespace OOP_RPG
             Console.WriteLine("----------------------------------------------------------------------------------------------");
             Console.WriteLine($"*****  HERO { this.Name}'s INVENTORY ******");
             Console.WriteLine("----------------------------------------------------------------------------------------------");
-            Console.WriteLine("# Weapon(s) you bought :");
+            Console.WriteLine("# Weapon Bag :");
 
             var weaponNumber = 1;
             foreach (var weapon in this.WeaponsBag)
@@ -82,8 +82,8 @@ namespace OOP_RPG
                 Console.WriteLine($"{weaponNumber}. {weapon.Name} : {weapon.Strength} Strength");
                 weaponNumber += 1;
             }
-
-            Console.WriteLine("# Armor(s) you bought:");
+            Console.WriteLine("----------------------------------------------------------------------------------------------");
+            Console.WriteLine("# Armor Bag:");
             var armorNumber = 1;
             foreach (var armor in this.ArmorsBag)
             {
@@ -91,7 +91,7 @@ namespace OOP_RPG
                 armorNumber += 1;
             }
             Console.WriteLine("----------------------------------------------------------------------------------------------");
-            Console.WriteLine("# Current hero equiped item(s):");
+            Console.WriteLine("# Current Equipped Item(s):");
             if (EquippedWeapon != null)
             {
                 Console.WriteLine($">>{EquippedWeapon.Name} - {EquippedWeapon.Strength} Strenth");

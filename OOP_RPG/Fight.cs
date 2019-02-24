@@ -23,12 +23,12 @@ namespace OOP_RPG
             Console.WriteLine($"***** HERO VS ENEMY *****");
             Console.WriteLine("----------------------------------------------------------------------------------------------");
 
-            Console.WriteLine($"# Remember monster '{Enemy.Name}' is {Enemy.Diffculty} Level");
+            Console.WriteLine($"# Remember, Monster '{Enemy.Name}' is {Enemy.Diffculty} Level");
                   
                        
             while (Enemy.CurrentHP > 0 && Hero.CurrentHP > 0)
             {
-                Console.WriteLine($"# {Hero.Name}, you got the power : Strength({Hero.Strength}), Defense({Hero.Defense}), HP({Hero.CurrentHP})");
+                Console.WriteLine($"# {Hero.Name}, You got the power : Strength({Hero.Strength}), Defense({Hero.Defense}), HP({Hero.CurrentHP})");
                 Console.WriteLine($"# You've encountered a '{Enemy.Name}' monster! : Strength({Enemy.Strength}), Defense({Enemy.Defense}), HP({Enemy.CurrentHP})");
 
                 Console.WriteLine($"# What will you do?");
@@ -68,6 +68,7 @@ namespace OOP_RPG
             //Hero Hero Attack, Hero Strength > Enemy Defense
             else
             {
+                
                 Enemy.CurrentHP -= finalDamage;
             }
             Console.WriteLine("----------------------------------------------------------------------------------------------");
@@ -106,6 +107,7 @@ namespace OOP_RPG
             //Enemy  Attack  Enemy Strength > Hero Defense
             else
             {
+                
                 Hero.CurrentHP -= finalDamage;
             }
 
@@ -174,7 +176,7 @@ namespace OOP_RPG
 
             Random getRandomNumber = new Random();            
             var finalDamage = getRandomNumber.Next(MinimumDamage, MaximumDamage + 1);
-            
+                                
             return finalDamage;
         }
     }

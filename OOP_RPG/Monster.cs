@@ -8,8 +8,9 @@ namespace OOP_RPG
         public int OriginalHP { get; set; }
         public int CurrentHP { get; set; }
         public MonsterLevel Diffculty { get; set; }
-        
-        public Monster(string name, int strength, int defense, int hp, MonsterLevel diffculty)
+        public MonsterOfTheDay Weekday { get; set; }
+
+        public Monster(string name, int strength, int defense, int hp, MonsterLevel diffculty, MonsterOfTheDay weekday)
         {
             Name = name;
             Strength = strength;
@@ -17,6 +18,7 @@ namespace OOP_RPG
             OriginalHP = hp;
             CurrentHP = hp;
             Diffculty = diffculty;
+            Weekday = weekday;
         }
     }
 

@@ -50,6 +50,7 @@
     <Compile Include="ItemShop.cs" />
     <Compile Include="Monster.cs" />
     <Compile Include="MonsterLevel.cs" />
+    <Compile Include="MonsterOfTheDay.cs" />
     <Compile Include="MonsterSelector.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

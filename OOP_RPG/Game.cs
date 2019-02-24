@@ -5,18 +5,18 @@ namespace OOP_RPG
     public class Game
     {
         public Hero Hero { get; }
-        public Monster Monster { get; set; }
-       
 
         public Game()
         {
-            Hero = new Hero();
+            Hero = new Hero();            
         }
 
         public void Start()
         {
             Console.Clear();
+            Console.WriteLine("----------------------------------------------------------------------------------------------");
             Console.WriteLine("Welcome hero!");
+            Console.WriteLine("----------------------------------------------------------------------------------------------");
             Console.WriteLine("Please enter your name:");
 
             Hero.Name =  Console.ReadLine().ToUpper();
@@ -31,17 +31,18 @@ namespace OOP_RPG
         {
             var input = "0";
 
-            while (input != "5")
+            while (input != "6")
             {
                 Console.Clear();
                 Console.WriteLine("----------------------------------------------------------------------------------------------");
                 Console.WriteLine($"***** Role Playing Game Menu  *****");
                 Console.WriteLine("----------------------------------------------------------------------------------------------");
-                Console.WriteLine("1. View Stats");
-                Console.WriteLine("2. View Inventory");
+                Console.WriteLine("1. View Hero Stats");
+                Console.WriteLine("2. View Hero Inventory"); 
                 Console.WriteLine("3. Fight Monster");
                 Console.WriteLine("4. Items Shop");
-                Console.WriteLine("5. Exit");
+                Console.WriteLine("5. Today's Monsters");
+                Console.WriteLine("6. Exit");
                 Console.Write("Selet the number of menu : ");
                 input = Console.ReadLine();
 
@@ -61,7 +62,12 @@ namespace OOP_RPG
                 {
                     this.BuyItem();
                 }
-                
+                else if (input == "5")
+                {
+                    this.DisplayMonsterOfToday();
+                }
+
+
                 //When Hero lose the game, exit
                 if (Hero.CurrentHP <= 0)
                 {
@@ -98,6 +104,13 @@ namespace OOP_RPG
         {
             var ItemShop = new ItemShop(Hero);
             ItemShop.Start();
+            Console.WriteLine("Press any key to return to main menu.");
+            Console.ReadKey();
+        }
+        private void DisplayMonsterOfToday()
+        {
+            var MonsterSelector = new MonsterSelector();
+            MonsterSelector.DisplayMonsterofToday();
             Console.WriteLine("Press any key to return to main menu.");
             Console.ReadKey();
         }

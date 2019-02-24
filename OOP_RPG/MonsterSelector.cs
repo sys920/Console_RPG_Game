@@ -17,52 +17,19 @@ namespace OOP_RPG
 
         public Monster SelectByRandomBaseOnWeekDay()
         {
-            Random rnd = new Random();
-
-            //Set the day for test 
-            DateTime dateValue = DateTime.Now;
-
-            //Get weekday from today (Sunday:0 ~ Saturday:6)
-
-            //Default weekday is 0 (Sunday)
-            var weekday = (int)dateValue.DayOfWeek;
-            var randomNumber = rnd.Next(30, 35);
-
-            var enemy = Monsters[randomNumber];
-
+                
+            var today = DateTime.Now.DayOfWeek.ToString();
+            
             // Each weekday takes 1 monster randomly  from 5 monsters 
-            if (weekday == 1)
-            {
-                randomNumber = rnd.Next(0, 5);
-                enemy = Monsters[randomNumber];
-            }
-            else if (weekday == 2)
-            {
-                randomNumber = rnd.Next(5, 10);
-                enemy = Monsters[randomNumber];
-            }
-            else if (weekday == 3)
-            {
-                randomNumber = rnd.Next(10, 15);
-                enemy = Monsters[randomNumber];
-            }
-            else if (weekday == 4)
-            {
-                randomNumber = rnd.Next(15, 20);
-                enemy = Monsters[randomNumber];
-            }
-            else if (weekday == 5)
-            {
-                randomNumber = rnd.Next(20, 25);
-                enemy = Monsters[randomNumber];
-            }
-            else if (weekday == 6)
-            {
-                randomNumber = rnd.Next(25, 30);
-                enemy = Monsters[randomNumber];
-            }
+            var randomEnemy = (from monster in Monsters
+                         where monster.Weekday.ToString() == today
+                        select monster).ToList();
 
-            return enemy;
+            // Select Random monster from Monster Lists 
+            Random rnd = new Random();
+            var randomNumber = rnd.Next(0, randomEnemy.Count()+1);
+
+            return randomEnemy[randomNumber];
         }
 
         private void GenerateMonster()
@@ -70,58 +37,85 @@ namespace OOP_RPG
             Monsters = new List<Monster>();
 
             //Monday-1
-            AddMonster("Bulbasaur", 5, 5, 15, MonsterLevel.Easy);
-            AddMonster("Ivysaur", 6, 4, 9, MonsterLevel.Easy);
-            AddMonster("Venusaur", 18, 8, 15, MonsterLevel.Medium);
-            AddMonster("Charmander", 17, 9, 18, MonsterLevel.Medium);
-            AddMonster("Charizard", 28, 15, 27, MonsterLevel.Hard);
+            AddMonster("Bulbasaur", 5, 5, 15, MonsterLevel.Easy, MonsterOfTheDay.Monday);
+            AddMonster("Ivysaur", 6, 4, 9, MonsterLevel.Easy, MonsterOfTheDay.Monday);
+            AddMonster("Venusaur", 18, 8, 15, MonsterLevel.Medium, MonsterOfTheDay.Monday);
+            AddMonster("Charmander", 17, 9, 18, MonsterLevel.Medium, MonsterOfTheDay.Monday);
+            AddMonster("Charizard", 28, 15, 27, MonsterLevel.Hard, MonsterOfTheDay.Monday);
 
             //Tuesday-2
-            AddMonster("Squirtle", 6, 5, 9, MonsterLevel.Easy);
-            AddMonster("Wartortle", 7, 5, 8, MonsterLevel.Easy);
-            AddMonster("Blastoise", 12, 6, 12, MonsterLevel.Medium);
-            AddMonster("Charmeleon", 15, 8, 17, MonsterLevel.Medium);
-            AddMonster("Caterpie", 24, 18, 25, MonsterLevel.Hard);
+            AddMonster("Squirtle", 6, 5, 9, MonsterLevel.Easy, MonsterOfTheDay.Tuesday);
+            AddMonster("Wartortle", 7, 5, 8, MonsterLevel.Easy, MonsterOfTheDay.Tuesday);
+            AddMonster("Blastoise", 12, 6, 12, MonsterLevel.Medium, MonsterOfTheDay.Tuesday);
+            AddMonster("Charmeleon", 15, 8, 17, MonsterLevel.Medium, MonsterOfTheDay.Tuesday);
+            AddMonster("Caterpie", 24, 18, 25, MonsterLevel.Hard, MonsterOfTheDay.Tuesday);
 
             //Wednesday-3
-            AddMonster("Metapod", 6, 7, 12, MonsterLevel.Easy);
-            AddMonster("Butterfree", 9, 8, 15, MonsterLevel.Easy);
-            AddMonster("Weedle", 11, 10, 20, MonsterLevel.Medium);
-            AddMonster("Kakuna", 15, 10, 19, MonsterLevel.Medium);
-            AddMonster("Beedrill", 25, 8, 17, MonsterLevel.Hard);
+            AddMonster("Metapod", 6, 7, 12, MonsterLevel.Easy, MonsterOfTheDay.Wednesday);
+            AddMonster("Butterfree", 9, 8, 15, MonsterLevel.Easy, MonsterOfTheDay.Wednesday);
+            AddMonster("Weedle", 11, 10, 20, MonsterLevel.Medium, MonsterOfTheDay.Wednesday);
+            AddMonster("Kakuna", 15, 10, 19, MonsterLevel.Medium, MonsterOfTheDay.Wednesday);
+            AddMonster("Beedrill", 25, 8, 17, MonsterLevel.Hard, MonsterOfTheDay.Wednesday);
 
             //Thursday-4
-            AddMonster("Pidgey", 8, 5, 10, MonsterLevel.Easy);
-            AddMonster("Pidgeotto", 8, 8, 9, MonsterLevel.Easy);
-            AddMonster("Pidgeot", 10, 8, 18, MonsterLevel.Medium);
-            AddMonster("Rattata", 12, 6, 17, MonsterLevel.Medium);
-            AddMonster("Raticate", 21, 16, 25, MonsterLevel.Hard);
+            AddMonster("Pidgey", 8, 5, 10, MonsterLevel.Easy, MonsterOfTheDay.Thursday);
+            AddMonster("Pidgeotto", 8, 8, 9, MonsterLevel.Easy, MonsterOfTheDay.Thursday);
+            AddMonster("Pidgeot", 10, 8, 18, MonsterLevel.Medium, MonsterOfTheDay.Wednesday);
+            AddMonster("Rattata", 12, 6, 17, MonsterLevel.Medium, MonsterOfTheDay.Thursday);
+            AddMonster("Raticate", 21, 16, 25, MonsterLevel.Hard, MonsterOfTheDay.Thursday);
 
             //Friday-5
-            AddMonster("Spearow", 4, 3, 7, MonsterLevel.Easy);
-            AddMonster("Fearow", 5, 8, 9, MonsterLevel.Easy);
-            AddMonster("Ekans", 12, 10, 15, MonsterLevel.Medium);
-            AddMonster("Arbok", 11, 10, 19, MonsterLevel.Medium);
-            AddMonster("Pikachu", 16, 10, 27, MonsterLevel.Hard);
+            AddMonster("Spearow", 4, 3, 7, MonsterLevel.Easy, MonsterOfTheDay.Friday);
+            AddMonster("Fearow", 5, 8, 9, MonsterLevel.Easy, MonsterOfTheDay.Friday);
+            AddMonster("Ekans", 12, 10, 15, MonsterLevel.Medium, MonsterOfTheDay.Friday);
+            AddMonster("Arbok", 11, 10, 19, MonsterLevel.Medium, MonsterOfTheDay.Friday);
+            AddMonster("Pikachu", 16, 10, 27, MonsterLevel.Hard, MonsterOfTheDay.Friday);
 
             //Saturday-6
-            AddMonster("Raichu", 6, 7, 12, MonsterLevel.Easy);
-            AddMonster("Sandshrew", 8, 6, 13, MonsterLevel.Easy);
-            AddMonster("Sandslash", 12, 10, 15, MonsterLevel.Medium);
-            AddMonster("Nidoran", 15, 12, 18, MonsterLevel.Medium);
-            AddMonster("Nidoran", 20, 10, 22, MonsterLevel.Hard);
+            AddMonster("Raichu", 9, 7, 12, MonsterLevel.Easy, MonsterOfTheDay.Saturday);
+            AddMonster("Nomad", 9, 7, 12, MonsterLevel.Easy, MonsterOfTheDay.Saturday);
+            AddMonster("Bracuda", 9, 7, 12, MonsterLevel.Easy, MonsterOfTheDay.Saturday);
+            AddMonster("Sandshrew", 12, 6, 13, MonsterLevel.Easy, MonsterOfTheDay.Saturday);
+            AddMonster("Sandslash", 16, 10, 15, MonsterLevel.Medium, MonsterOfTheDay.Saturday);
+            AddMonster("Harimaron", 22, 12, 18, MonsterLevel.Medium, MonsterOfTheDay.Saturday);
+            AddMonster("Nidoran", 26, 10, 22, MonsterLevel.Hard, MonsterOfTheDay.Saturday);
 
             //Sunday-0
-            AddMonster("Nidorina", 8, 5, 10, MonsterLevel.Easy);
-            AddMonster("Nidoqueen", 7, 5, 15, MonsterLevel.Easy);
-            AddMonster("Nidorino", 9, 8, 14, MonsterLevel.Medium);
-            AddMonster("Nidoking", 9, 10, 19, MonsterLevel.Medium);
-            AddMonster("Clefairy", 18, 17, 20, MonsterLevel.Hard);
+            AddMonster("Bouffalant", 8, 5, 10, MonsterLevel.Easy, MonsterOfTheDay.Sunday);
+            AddMonster("Nidoqueen", 7, 5, 15, MonsterLevel.Easy, MonsterOfTheDay.Sunday);
+            AddMonster("Nidorino", 9, 8, 14, MonsterLevel.Medium, MonsterOfTheDay.Sunday);
+            AddMonster("Nidoking", 9, 10, 19, MonsterLevel.Medium, MonsterOfTheDay.Sunday);
+            AddMonster("Clefairy", 18, 17, 20, MonsterLevel.Hard, MonsterOfTheDay.Sunday);
         }
 
-        public void AddMonster(string name, int strength, int defense, int hp, MonsterLevel diffculty)
+        public void AddMonster(string name, int strength, int defense, int hp, MonsterLevel diffculty, MonsterOfTheDay weekday )
         {
-            Monsters.Add(new Monster(name, strength, defense, hp, diffculty));
+            Monsters.Add(new Monster(name, strength, defense, hp, diffculty, weekday));
+        }
+
+        public void DisplayMonsterofToday()
+        {
+            var today = DateTime.Now.DayOfWeek.ToString();
+
+            var todayMosters = (from monster in Monsters
+                               where monster.Weekday.ToString() == today
+                               select monster).ToList();
+            Console.Clear();
+            Console.WriteLine("----------------------------------------------------------------------------------------------");
+            Console.WriteLine($"***** The Monsters of {today} *****");
+            Console.WriteLine("----------------------------------------------------------------------------------------------");
+            Console.WriteLine(String.Format("{0,3} | {1,-15} | {2,8} | {3,8} | {4,8} |", "No", "Name", "Strength", "Defense", "HP"));
+            
+            Console.WriteLine("----------------------------------------------------------------------------------------------");
+            var i = 1;
+            foreach (var monster in todayMosters)
+            {
+                //Console.WriteLine($"{i}. {monster.Name} - {monster.Strength} - {monster.Defense} - {monster.OriginalHP}");
+                Console.WriteLine(String.Format("{0,3} | {1,-15} | {2,8} | {3,8} | {4,8} |", i, monster.Name, monster.Strength, monster.Defense, monster.OriginalHP));
+                i += 1 ;
+            }
+            Console.WriteLine("----------------------------------------------------------------------------------------------");
+
         }
     }
 }

@@ -15,24 +15,26 @@ namespace OOP_RPG
         public ItemShop(Hero hero)
         {
             Armors = new List<Armor>();
-            GenerateArmor();
             Weapons = new List<Weapon>();
+            GenerateArmor();
             GenerateWeapen();
             Hero = hero;
         }
 
         private void GenerateArmor()
         {
-            Armors.Add(new Armor("Wooden Armor", 10, 8));
-            Armors.Add(new Armor("Metal2 Armor", 12, 14));
-            Armors.Add(new Armor("Golden Armor", 15, 18));
+            Armors.Add(new Armor("Leather", 4, 8));
+            Armors.Add(new Armor("Breastplate", 8, 18));
+            Armors.Add(new Armor("Augmented Chain", 12, 25));
+            Armors.Add(new Armor("Breastplate", 15, 23));
         }
 
         private void GenerateWeapen()
         {
-            Weapons.Add(new Weapon("Sword2 weapon", 3, 10));
-            Weapons.Add(new Weapon("BigAxe weapon", 4, 12));
-            Weapons.Add(new Weapon("Xsword weapon", 7, 15));
+            Weapons.Add(new Weapon("Recurve bow", 3, 10));
+            Weapons.Add(new Weapon("BigAxe", 6, 20));
+            Weapons.Add(new Weapon("XV sword", 15, 40));
+            Weapons.Add(new Weapon("Arming sword", 15, 40));
         }
 
         public void Start()
@@ -45,11 +47,12 @@ namespace OOP_RPG
             //Display weapon list
             Console.WriteLine("# Weapon");
             Console.WriteLine("----------------------------------------------------------------------------------------------");
-            Console.WriteLine("ID   Name         Feature      price");
+            Console.WriteLine(String.Format("{0,3} | {1,-15} | {2,7} | {3,7} |", "ID", "Name", "Strenth", "Price"));
+            Console.WriteLine("----------------------------------------------------------------------------------------------");
             var weaponNumber = 1;
             foreach (var weapon in Weapons)
             {
-                Console.WriteLine($"{weaponNumber}. {weapon.Name} - Strength{weapon.Strength} - {weapon.Price} Gold");
+                Console.WriteLine(String.Format("{0,3} | {1,-15} | {2,7} | {3,7} |", weaponNumber, weapon.Name, weapon.Strength, weapon.Price));
                 weaponNumber = weaponNumber + 1;
 
             }
@@ -59,11 +62,12 @@ namespace OOP_RPG
             //Display weapon list
             Console.WriteLine("# Armors");
             Console.WriteLine("----------------------------------------------------------------------------------------------");
-            Console.WriteLine("ID   Name         Feature      price");
+            Console.WriteLine(String.Format("{0,3} | {1,-15} | {2,7} | {3,7} |", "ID", "Name", "Defense", "Price"));
+            Console.WriteLine("----------------------------------------------------------------------------------------------");
             var armorNumber = 1;
             foreach (var armor in Armors)
-            {
-                Console.WriteLine($"{armorNumber}. {armor.Name} - Defense:{armor.Defense} - {armor.Price} Gold");
+            {                
+                Console.WriteLine(String.Format("{0,3} | {1,-15} | {2,7} | {3,7} |", armorNumber, armor.Name, armor.Defense, armor.Price));
                 armorNumber = armorNumber + 1;
             }
 
@@ -136,7 +140,6 @@ namespace OOP_RPG
             {
                 Console.WriteLine("Sorry,No result!");
             }
-
         }
 
         public void BuyArmor()
