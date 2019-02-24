@@ -24,17 +24,17 @@ namespace OOP_RPG
         private void GenerateArmor()
         {
             Armors.Add(new Armor("Leather", 4, 8));
-            Armors.Add(new Armor("Breastplate", 8, 18));
-            Armors.Add(new Armor("Augmented Chain", 12, 25));
-            Armors.Add(new Armor("Breastplate", 15, 23));
+            Armors.Add(new Armor("BreastPlate", 8, 18));
+            Armors.Add(new Armor("Augmented Chain", 15, 25));
+            Armors.Add(new Armor("CorosPlate", 20, 40));
         }
 
         private void GenerateWeapen()
         {
             Weapons.Add(new Weapon("Recurve bow", 3, 10));
             Weapons.Add(new Weapon("BigAxe", 6, 20));
-            Weapons.Add(new Weapon("XV sword", 15, 40));
-            Weapons.Add(new Weapon("Arming sword", 15, 40));
+            Weapons.Add(new Weapon("XV sword", 15, 30));
+            Weapons.Add(new Weapon("Arming sword", 25, 50));
         }
 
         public void Start()

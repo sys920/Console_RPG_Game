@@ -27,7 +27,7 @@ namespace OOP_RPG
 
             // Select Random monster from Monster Lists 
             Random rnd = new Random();
-            var randomNumber = rnd.Next(0, randomEnemy.Count()+1);
+            var randomNumber = rnd.Next(0, randomEnemy.Count());
 
             return randomEnemy[randomNumber];
         }
@@ -39,6 +39,8 @@ namespace OOP_RPG
             //Monday-1
             AddMonster("Bulbasaur", 5, 5, 15, MonsterLevel.Easy, MonsterOfTheDay.Monday);
             AddMonster("Ivysaur", 6, 4, 9, MonsterLevel.Easy, MonsterOfTheDay.Monday);
+            AddMonster("Kobaloo", 4, 5, 8, MonsterLevel.Easy, MonsterOfTheDay.Monday);
+            AddMonster("Myshine", 6, 5, 7, MonsterLevel.Easy, MonsterOfTheDay.Monday);
             AddMonster("Venusaur", 18, 8, 15, MonsterLevel.Medium, MonsterOfTheDay.Monday);
             AddMonster("Charmander", 17, 9, 18, MonsterLevel.Medium, MonsterOfTheDay.Monday);
             AddMonster("Charizard", 28, 15, 27, MonsterLevel.Hard, MonsterOfTheDay.Monday);
@@ -46,6 +48,8 @@ namespace OOP_RPG
             //Tuesday-2
             AddMonster("Squirtle", 6, 5, 9, MonsterLevel.Easy, MonsterOfTheDay.Tuesday);
             AddMonster("Wartortle", 7, 5, 8, MonsterLevel.Easy, MonsterOfTheDay.Tuesday);
+            AddMonster("LLollPrice", 4, 4, 9, MonsterLevel.Easy, MonsterOfTheDay.Tuesday);
+            AddMonster("Kobrisub", 5, 3, 10, MonsterLevel.Easy, MonsterOfTheDay.Tuesday);
             AddMonster("Blastoise", 12, 6, 12, MonsterLevel.Medium, MonsterOfTheDay.Tuesday);
             AddMonster("Charmeleon", 15, 8, 17, MonsterLevel.Medium, MonsterOfTheDay.Tuesday);
             AddMonster("Caterpie", 24, 18, 25, MonsterLevel.Hard, MonsterOfTheDay.Tuesday);
@@ -82,7 +86,9 @@ namespace OOP_RPG
 
             //Sunday-0
             AddMonster("Bouffalant", 8, 5, 10, MonsterLevel.Easy, MonsterOfTheDay.Sunday);
-            AddMonster("Nidoqueen", 7, 5, 15, MonsterLevel.Easy, MonsterOfTheDay.Sunday);
+            AddMonster("Nidoqueen", 5, 5, 15, MonsterLevel.Easy, MonsterOfTheDay.Sunday);
+            AddMonster("Wartortle", 4, 5, 8, MonsterLevel.Easy, MonsterOfTheDay.Sunday);
+            AddMonster("Blastoise", 6, 6, 12, MonsterLevel.Medium, MonsterOfTheDay.Sunday);
             AddMonster("Nidorino", 9, 8, 14, MonsterLevel.Medium, MonsterOfTheDay.Sunday);
             AddMonster("Nidoking", 9, 10, 19, MonsterLevel.Medium, MonsterOfTheDay.Sunday);
             AddMonster("Clefairy", 18, 17, 20, MonsterLevel.Hard, MonsterOfTheDay.Sunday);

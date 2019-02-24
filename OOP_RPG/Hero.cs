@@ -10,7 +10,7 @@ namespace OOP_RPG
         public string Name { get; set; }
         public int Strength { get; }
         public int Defense { get; }
-        public int OriginalHP { get; set; }
+        public int OriginalHP { get; }
         public int CurrentHP { get; set; }
         public Weapon EquippedWeapon { get; private set; }
         public Armor EquippedArmor { get; private set; }
@@ -33,7 +33,7 @@ namespace OOP_RPG
             Defense = 8;
             OriginalHP = 15;
             CurrentHP = 15;
-            GoldCoin = 5;
+            GoldCoin = 20;
         }
 
         //These are the Methods of our Class.
@@ -74,37 +74,58 @@ namespace OOP_RPG
             Console.WriteLine("----------------------------------------------------------------------------------------------");
             Console.WriteLine($"*****  HERO { this.Name}'s INVENTORY ******");
             Console.WriteLine("----------------------------------------------------------------------------------------------");
-            Console.WriteLine("# Weapon Bag :");
+            Console.WriteLine("# Weapon Bag:");
 
-            var weaponNumber = 1;
-            foreach (var weapon in this.WeaponsBag)
+            if(this.WeaponsBag.Count() != 0)
             {
-                Console.WriteLine($"{weaponNumber}. {weapon.Name} : {weapon.Strength} Strength");
-                weaponNumber += 1;
+                var weaponNumber = 1;
+                foreach (var weapon in this.WeaponsBag)
+                {
+                    Console.WriteLine($"{weaponNumber}. {weapon.Name} : {weapon.Strength} Strength");
+                    weaponNumber += 1;
+                }
             }
+            else
+            {
+                Console.WriteLine(" [ No Weapon in this bag ] ");
+            }
+
+            
             Console.WriteLine("----------------------------------------------------------------------------------------------");
             Console.WriteLine("# Armor Bag:");
-            var armorNumber = 1;
-            foreach (var armor in this.ArmorsBag)
+            if(this.ArmorsBag.Count() != 0 )
             {
-                Console.WriteLine($"{armorNumber}. {armor.Name} : {armor.Defense} Defense");
-                armorNumber += 1;
+                var armorNumber = 1;
+                foreach (var armor in this.ArmorsBag)
+                {
+                    Console.WriteLine($"{armorNumber}. {armor.Name} : {armor.Defense} Defense");
+                    armorNumber += 1;
+                }
             }
-            Console.WriteLine("----------------------------------------------------------------------------------------------");
-            Console.WriteLine("# Current Equipped Item(s):");
-            if (EquippedWeapon != null)
+            else
             {
-                Console.WriteLine($">>{EquippedWeapon.Name} - {EquippedWeapon.Strength} Strenth");
+                Console.WriteLine(" [ No Armor in this bag ] ");
             }
             
-            if (EquippedArmor != null)
+            Console.WriteLine("----------------------------------------------------------------------------------------------");
+            Console.WriteLine("# Current Equipped Item(s):");
+            if(EquippedWeapon != null || EquippedArmor != null)
             {
-                Console.WriteLine($">>{EquippedArmor.Name} - {EquippedArmor.Defense} Defense");
+                if (EquippedWeapon != null)
+                {
+                    Console.WriteLine($" [ Weapon] {EquippedWeapon.Name} - {EquippedWeapon.Strength} Strenth");
+                }
+                if (EquippedArmor != null)
+                {
+                    Console.WriteLine($" [ Armor ] {EquippedArmor.Name} - {EquippedArmor.Defense} Defense");
+                }
+            }
+            else 
+            {
+                Console.WriteLine(" [ Nothing was equipped ] ");
             }
         
-
             Console.WriteLine("----------------------------------------------------------------------------------------------");
-
             Console.WriteLine("1-Equip Weapon");
             Console.WriteLine("2-UnEquip Weapon");
             Console.WriteLine("3-Equip Armors");

@@ -2,13 +2,13 @@ namespace OOP_RPG
 {
     public class Monster
     {
-        public string Name { get; set; }
-        public int Strength { get; set; }
-        public int Defense { get; set; }
-        public int OriginalHP { get; set; }
+        public string Name { get;  }
+        public int Strength { get;  }
+        public int Defense { get;  }
+        public int OriginalHP { get;  }
         public int CurrentHP { get; set; }
-        public MonsterLevel Diffculty { get; set; }
-        public MonsterOfTheDay Weekday { get; set; }
+        public MonsterLevel Diffculty { get; }
+        public MonsterOfTheDay Weekday { get; }
 
         public Monster(string name, int strength, int defense, int hp, MonsterLevel diffculty, MonsterOfTheDay weekday)
         {

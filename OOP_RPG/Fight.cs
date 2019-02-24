@@ -55,8 +55,7 @@ namespace OOP_RPG
             //Calculator Damage when hero equiped Weapon  
             if (Hero.EquippedWeapon != null)
             {
-                DamageCompared = (Hero.Strength + Hero.EquippedWeapon.Strength) - Enemy.Defense;
-                finalDamage = DamageCalculator(DamageCompared);
+                DamageCompared = (Hero.Strength + Hero.EquippedWeapon.Strength) - Enemy.Defense;             
             }    
                      
             //Hero Attack,  Hero Strength < Enemy Defense
@@ -68,7 +67,7 @@ namespace OOP_RPG
             //Hero Hero Attack, Hero Strength > Enemy Defense
             else
             {
-                
+                finalDamage = DamageCalculator(DamageCompared);
                 Enemy.CurrentHP -= finalDamage;
             }
             Console.WriteLine("----------------------------------------------------------------------------------------------");
@@ -89,14 +88,13 @@ namespace OOP_RPG
         private void MonsterTurn()
         {
             //Calculator Damage 
-            var DamageCompared = Enemy.Strength - Hero.Defense ;
+            var DamageCompared = Enemy.Strength - Hero.Defense;
             var finalDamage = DamageCompared;
 
             //Calculator Damage when hero equiped armor  
             if (Hero.EquippedArmor != null)
             {
-                DamageCompared = Enemy.Strength - (Hero.Defense + Hero.EquippedArmor.Defense);
-                finalDamage = DamageCalculator(DamageCompared);
+                DamageCompared = Enemy.Strength - (Hero.Defense + Hero.EquippedArmor.Defense);              
             }
             //Enemy Attack,  Enemy Strength < Hero Defense
             if (DamageCompared <= 0)
@@ -107,7 +105,7 @@ namespace OOP_RPG
             //Enemy  Attack  Enemy Strength > Hero Defense
             else
             {
-                
+                finalDamage = DamageCalculator(DamageCompared);
                 Hero.CurrentHP -= finalDamage;
             }
 
@@ -122,16 +120,15 @@ namespace OOP_RPG
 
         private void Win()
         {
-            
-            Console.WriteLine($"# {Enemy.Name} has been defeated! {Hero.Name} win(s) the battle!");
+            Console.WriteLine($"# {Enemy.Name} has been defeated!  {Hero.Name} win(s) the battle!");
             Console.WriteLine("----------------------------------------------------------------------------------------------");
 
             var heroRewardGold = RewardCalculator(Enemy.Diffculty);
-
             Hero.GoldCoin= Hero.GoldCoin + heroRewardGold;
 
-            Console.WriteLine($"# {Hero.Name}, Congratulations on winning the battle! you get the {heroRewardGold} Gold.");
+            Console.WriteLine($"# {Hero.Name}, Congratulations on winning the battle! you get the new {heroRewardGold} Gold.");
             Console.WriteLine($"# Now, you have total {Hero.GoldCoin} Gold.");
+
             Console.WriteLine("----------------------------------------------------------------------------------------------");
             Console.WriteLine("Press any key to return to main menu.");
             Console.ReadKey();
