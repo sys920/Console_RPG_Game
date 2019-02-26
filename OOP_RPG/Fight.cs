@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OOP_RPG
 {
@@ -35,6 +36,8 @@ namespace OOP_RPG
 
                 Console.WriteLine("----------------------------------------------------------------------------------------------");
                 Console.WriteLine("1. Fight");
+                Console.WriteLine("2. Use potion");
+                Console.WriteLine("3. Run Away!");
                 Console.Write("Selet the number of menu : ");
 
                 var input = Console.ReadLine();
@@ -42,6 +45,15 @@ namespace OOP_RPG
                 if (input == "1")
                 {
                     HeroTurn();
+                }
+                else if (input == "2")
+                {
+                    Hero.UsingPotion();
+                }
+                else if (input == "3")
+                {
+                    RunAway();
+                    break;
                 }
             }
         }
@@ -148,17 +160,17 @@ namespace OOP_RPG
             Random getRandomNumber = new Random();
             var getHeroGold = 0;
 
-            if (diffculty.ToString() == "Easy")
+            if (Enemy.Diffculty == MonsterLevel.Easy)
             {
                 getHeroGold = getRandomNumber.Next(1, 11);               
             }
-            else if (diffculty.ToString() == "Medium")
+            else if (Enemy.Diffculty == MonsterLevel.Medium)
             {
                 getHeroGold = getRandomNumber.Next(11, 21);        
             }
-            else if (diffculty.ToString() == "Hard")
+            else if (Enemy.Diffculty == MonsterLevel.Hard)
             {
-                getHeroGold = getRandomNumber.Next(12, 31);                
+                getHeroGold = getRandomNumber.Next(21, 31);                
             }          
             
             return getHeroGold;
@@ -171,10 +183,78 @@ namespace OOP_RPG
             var MaximumDamage = Convert.ToInt32(baseDamage * 1.5);
             var MinimumDamage = Convert.ToInt32(baseDamage * 0.5);
 
-            Random getRandomNumber = new Random();            
+            Random getRandomNumber = new Random();
             var finalDamage = getRandomNumber.Next(MinimumDamage, MaximumDamage + 1);
-                                
             return finalDamage;
         }
+
+        private void RunAway()
+        {     
+            Random randomNum = new Random();
+
+            var DamageCompared = Enemy.Strength - Hero.Defense;            
+
+            if  (Hero.EquippedArmor != null)
+            {
+                DamageCompared = Enemy.Strength - (Hero.Defense + Hero.EquippedArmor.Defense);
+            }
+
+            var finalDamage = DamageCompared;
+
+            if (DamageCompared > 0 )
+            {
+                finalDamage = DamageCalculator(DamageCompared);
+            }
+            else
+            {
+                finalDamage = -1;
+            }
+
+            Console.WriteLine("----------------------------------------------------------------------------------------------");
+
+            if (Enemy.Diffculty == MonsterLevel.Easy)
+            {
+                if (randomNum.Next(100) < 50)
+                {
+                    Console.WriteLine($"You ran away from {MonsterLevel.Medium} monster successfully!");
+                }
+                else
+                {
+                    Console.WriteLine($"You failed to run away, you got {finalDamage} damage(s)");
+                    Hero.CurrentHP -= finalDamage;
+                } 
+                
+            }
+            else if(Enemy.Diffculty == MonsterLevel.Medium)
+            {
+                if (randomNum.Next(100) < 25)
+                {
+                    Console.WriteLine($"You ran away from {MonsterLevel.Medium} monster successfully!");
+                }
+                else
+                {
+                    Console.WriteLine($"You failed to run away, you got {finalDamage} damage(s)");
+                    Hero.CurrentHP -= finalDamage;
+                }
+            }
+            else if (Enemy.Diffculty == MonsterLevel.Hard)
+            {
+                if (randomNum.Next(100) < 5)
+                {
+                    Console.WriteLine($"You ran away from {MonsterLevel.Medium} monster successfully!");
+                }
+                else
+                {
+                    Console.WriteLine($"You failed to run away, you got {finalDamage} damage(s)");
+                    Hero.CurrentHP -= finalDamage;
+                }
+                
+            }
+            Console.WriteLine($"Random {randomNum.Next(100)}");
+            Console.WriteLine("----------------------------------------------------------------------------------------------");
+            Console.WriteLine("Press any key to return to main menu.");
+            Console.ReadKey();
+        }
+        
     }
 }

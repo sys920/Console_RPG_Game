@@ -12,10 +12,11 @@ namespace OOP_RPG
         public int Defense { get; }
         public int OriginalHP { get; }
         public int CurrentHP { get; set; }
-        public Weapon EquippedWeapon { get; private set; }
-        public Armor EquippedArmor { get; private set; }
+        public Weapon EquippedWeapon { get; set; }
+        public Armor EquippedArmor { get; set; }
         public List<Armor> ArmorsBag { get; set; }
         public List<Weapon> WeaponsBag { get; set; }
+        public List<Potion> PotionsBag { get; set; }
         public int GoldCoin { get; set; }
 
         /*This is a Constructor.
@@ -29,11 +30,12 @@ namespace OOP_RPG
         {
             ArmorsBag = new List<Armor>();
             WeaponsBag = new List<Weapon>();
-            Strength = 10;
-            Defense = 8;
-            OriginalHP = 15;
-            CurrentHP = 15;
-            GoldCoin = 20;
+            PotionsBag = new List<Potion>();
+            Strength = 2;
+            Defense = 3;
+            OriginalHP = 30;
+            CurrentHP = 30;
+            GoldCoin = 100;
         }
 
         //These are the Methods of our Class.
@@ -44,26 +46,19 @@ namespace OOP_RPG
             Console.WriteLine($"***** HERO { this.Name}'s STATS *****");
             Console.WriteLine("----------------------------------------------------------------------------------------------");
 
-            if (this.EquippedWeapon != null)
-            {
-                Console.WriteLine($"# Strength: {this.Strength} (+{EquippedWeapon.Strength})");
-            }
-            else
-            {
-                Console.WriteLine("# Strength: " + this.Strength);
-            }
+            Console.WriteLine($"# Strength: {this.Strength} {(this.EquippedWeapon == null ? "" : "(+" + this.EquippedWeapon.Strength + ")")}");
 
+            
 
-            if (this.EquippedArmor != null)
-            {
-                Console.WriteLine($"# Defense: {this.Defense} (+{EquippedArmor.Defense})");
-            }
-            else
-            {
-                Console.WriteLine("# Defense: " + this.Defense);
-            }
+            Console.WriteLine($"# Defense: {this.Defense} {(this.EquippedArmor == null ? "" : "(+" + this.EquippedArmor.Defense +")")}");
 
+            
             Console.WriteLine("# Hitpoints: " + this.CurrentHP + "/" + this.OriginalHP);
+
+            Console.WriteLine("# Potion(s): ");
+
+            DisplayPotion();
+
             Console.WriteLine("# Gold coins: " + this.GoldCoin);
             Console.WriteLine("----------------------------------------------------------------------------------------------");
         }
@@ -258,6 +253,86 @@ namespace OOP_RPG
                 }
             }
             return keyInputResult;
+        }
+
+        public void DisplayPotion()
+        {
+            var potionQuery = (from potion in PotionsBag
+                               group potion by potion.Name into newGroup
+                               select new
+                               {
+                                   Name = newGroup.Key,
+                                   Quantyty = newGroup.Count()
+                               }).ToList();
+            if (potionQuery.Count() != 0)
+            {
+                for (var i = 0; i < potionQuery.Count(); i++)
+                {
+                    Console.WriteLine($" {i + 1}. {potionQuery[i].Name} ({potionQuery[i].Quantyty})");
+                }
+            }
+            else
+            {
+                Console.WriteLine($" [No potion yet]");
+            }
+            
+        }
+
+        public void UsingPotion()
+        {
+            var potionQuery = (from potion in PotionsBag
+                               group potion by potion.Name into newGroup
+                               select new
+                               {
+                                   Name = newGroup.Key,
+                                   Quantity = newGroup.Count()
+                               }).ToList();
+
+            Console.WriteLine("----------------------------------------------------------------------------------------------");
+
+            if (potionQuery.Count() != 0)
+            {
+                    for (var i = 0; i < potionQuery.Count(); i++)
+                    {
+                    Console.WriteLine($" {i + 1}. {potionQuery[i].Name} ({potionQuery[i].Quantity})");
+                    }
+
+                Console.WriteLine("----------------------------------------------------------------------------------------------");
+                Console.Write("Selet the potion to use: ");
+                var KeyInput = GetUserInputNumber();
+
+                //var pppotion = PotionsBag.ElementAtOrDefault(0);
+
+                if (KeyInput > potionQuery.Count() || KeyInput <= 0)
+                {
+                    Console.WriteLine("Type corrent the potion ID !");
+
+                }
+                else
+                {
+                    var usingPotionQuery = (from potion in PotionsBag
+                                            where potion.Name == potionQuery[KeyInput - 1].Name
+                                            select potion).FirstOrDefault();
+
+
+                    this.CurrentHP = this.CurrentHP + usingPotionQuery.HealthRestored;
+
+                    if (this.CurrentHP > this.OriginalHP)
+                    {
+                        Console.WriteLine($"You don't need to drink potion at this point, You wasted ({this.CurrentHP - this.OriginalHP})! ");
+                        this.CurrentHP = this.OriginalHP;                        
+                    }
+
+                    PotionsBag.Remove(usingPotionQuery);
+
+                    Console.WriteLine($"Drink '{potionQuery[KeyInput - 1].Name}' successfully!");
+                }
+            }
+            else
+            {
+                Console.WriteLine($" You don't have any potion");
+                Console.WriteLine("----------------------------------------------------------------------------------------------");
+            }
         }
     }
 }
