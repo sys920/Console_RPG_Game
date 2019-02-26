@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace OOP_RPG
 {
-    public class Potion
+    public class Potion 
     {
         public string Name { get; }
-        public int Price { get; }
         public int HealthRestored { get; }
+        public int Price { get; }
 
-        public Potion (string name, int price, int healthRestroed)
+        public Potion (string name, int healthRestroed, int price)
         {
-            Name = name;
-            Price = price;
+            Name = name;           
             HealthRestored = healthRestroed;
+            Price = price;
         }
     }
 }

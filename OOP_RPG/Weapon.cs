@@ -1,8 +1,7 @@
 namespace OOP_RPG
 {
-    public class Weapon
+    public class Weapon : InterfaceOfWeapon
     {
-
         public string Name { get; }
         public int Strength { get; }
         public int Price { get; }
@@ -12,6 +11,11 @@ namespace OOP_RPG
             Name = name;
             Strength = strength;
             Price = price;
+        }
+
+        public string GetDescription()
+        {
+            return $"Strenth ({Strength})";
         }
     }
 }

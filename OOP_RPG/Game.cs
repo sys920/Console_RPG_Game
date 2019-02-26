@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 namespace OOP_RPG
 {
@@ -88,6 +89,82 @@ namespace OOP_RPG
         {
             Hero.ShowInventory();
 
+            Console.WriteLine("----------------------------------------------------------------------------------------------");
+            Console.WriteLine("1-Equip Weapon");
+            Console.WriteLine("2-UnEquip Weapon");
+            Console.WriteLine("3-Equip Armor");
+            Console.WriteLine("4-UnEquip Armor");
+            Console.WriteLine("5-Equip Shield");
+            Console.WriteLine("6-UnEquip Shield");
+
+            Console.WriteLine("----------------------------------------------------------------------------------------------");
+            Console.Write("Select the menu : ");
+
+            var KeyInput = Console.ReadLine();
+            
+            //Equip Weapon
+            if (KeyInput == "1")
+            {
+                
+                var weapons = Hero.GetWeapons();
+
+                for (var i = 0; i < weapons.Count(); i++)
+                {
+                    Console.WriteLine($"{i + 1} - {weapons[i].Name}");
+                }
+
+                Console.Write("Selet the weapon ID : ");
+                var index = Hero.GetUserInputNumber()-1;
+                Hero.EquipWeapon(index);
+
+            }
+
+            //Unequip Weapon
+            else if (KeyInput == "2")
+            {               
+                Hero.UnEquipWeapon();
+            }
+
+            //Equip Armor
+            else if (KeyInput == "3")
+            {
+                var armors = Hero.GetArmors();
+                for (var i = 0; i < armors.Count(); i++)
+                {
+                    Console.WriteLine($"{i + 1} - {armors[i].Name}");
+                }
+                Console.Write("Selet the armor ID : ");
+                var index = Hero.GetUserInputNumber() - 1;
+                Hero.EquipArmor(index);
+            }
+
+            //Unequip Armor
+            else if (KeyInput == "4")
+            {
+                Hero.UnEquipArmor();
+            }
+
+            //Equip Shield
+            else if (KeyInput == "5")
+            {
+                var shields = Hero.GetShield();
+
+                for (var i = 0; i < shields.Count(); i++)
+                {
+                    Console.WriteLine($"{i + 1} - {shields[i].Name}");
+                }
+
+                Console.Write("Selet the shield ID : ");
+                var index = Hero.GetUserInputNumber() - 1;
+                Hero.EquipShield(index);
+            }
+
+            //Unequip Shield
+            else if (KeyInput == "6")
+            {
+                Hero.UnEquipShield();
+            }
+
             Console.WriteLine("Press any key to return to main menu.");
             Console.ReadKey();
         }
@@ -107,6 +184,7 @@ namespace OOP_RPG
             Console.WriteLine("Press any key to return to main menu.");
             Console.ReadKey();
         }
+
         private void DisplayMonsterOfToday()
         {
             var MonsterSelector = new MonsterSelector();

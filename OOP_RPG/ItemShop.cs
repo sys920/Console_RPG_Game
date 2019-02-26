@@ -6,17 +6,16 @@ using System.Threading.Tasks;
 
 namespace OOP_RPG
 {
-    class ItemShop
+    public class ItemShop
     {
-        private List<Armor> Armors { get; set; }
-        private List<Weapon> Weapons { get; set; }
+        private List<InterfaceOfItemShop> Items { get; set; }
         private List<Potion> Potions { get; set; }
-        private Hero Hero { get; }
+
+        private Hero Hero { get; set; }
 
         public ItemShop(Hero hero)
         {
-            Armors = new List<Armor>();
-            Weapons = new List<Weapon>();
+            Items = new List<InterfaceOfItemShop>();
             Potions = new List<Potion>();
             GenerateItems();
             Hero = hero;
@@ -24,21 +23,23 @@ namespace OOP_RPG
 
         private void GenerateItems()
         {
-            Armors.Add(new Armor("Leather", 4, 8));
-            Armors.Add(new Armor("BreastPlate", 8, 18));
-            Armors.Add(new Armor("Augmented Chain", 15, 25));
-            Armors.Add(new Armor("CorosPlate", 20, 40));
+            Items.Add(new Armor("Leather", 4, 8));
+            Items.Add(new Armor("BreastPlate", 8, 18));
+            Items.Add(new Armor("Augmented Chain", 15, 25));
+            Items.Add(new Armor("CorosPlate", 20, 40));
 
-            Weapons.Add(new Weapon("Recurve bow", 3, 10));
-            Weapons.Add(new Weapon("BigAxe", 6, 20));
-            Weapons.Add(new Weapon("XV sword", 15, 30));
-            Weapons.Add(new Weapon("Arming sword", 25, 50));
+            Items.Add(new Weapon("Recurve bow", 3, 10));
+            Items.Add(new Weapon("BigAxe", 6, 20));
+            Items.Add(new Weapon("XV sword", 15, 30));
+            Items.Add(new Weapon("Arming sword", 25, 50));   
+
+            Items.Add(new Shield("Wooden Shield", 3, 10));
+            Items.Add(new Shield("Battle Shield", 4, 12));
+            Items.Add(new Shield("Dragon Shield", 7, 15));
 
             Potions.Add(new Potion("Health Potion", 5, 7));
             Potions.Add(new Potion("Strong Health Potion", 10, 18));
             Potions.Add(new Potion("Great Health Potion", 15, 27));
-          
-
         }
 
         public void Start()
@@ -49,162 +50,85 @@ namespace OOP_RPG
             Console.WriteLine("----------------------------------------------------------------------------------------------");
 
             Console.WriteLine("# What would you buy ?");
-            Console.WriteLine("1-Buy Weapon");
-            Console.WriteLine("2-Buy Armor");
-            Console.WriteLine("3-Buy Potion");
-            Console.WriteLine("4-Sell Wapon");
-            Console.WriteLine("5-Sell Armor");
+            Console.WriteLine("1-Buy Item");
+            Console.WriteLine("2-Buy Potion");
+            Console.WriteLine("3-Sell Item");
+
             Console.WriteLine("AnyKey - Main menu");
 
             var KeyInput = Console.ReadLine();
 
             if (KeyInput == "1")
             {
-                BuyWeapon();
+                BuyItem();
             }
             else if (KeyInput == "2")
             {
-                BuyArmor();
+                BuyPotion();
             }
             else if (KeyInput == "3")
             {
-                BuyPotion();
-            }
-            else if (KeyInput == "4")
-            {
-                SellWeapon();
-            }
-            else if (KeyInput == "5")
-            {
-                SellArmor();
-            }
+                SellItem();
+            }            
         }              
 
-        public void BuyWeapon()
+        public void BuyItem()
         {
-            //Display weapon list
-            Console.WriteLine("# Weapon");
+            Console.WriteLine("# Buy Item");
             Console.WriteLine("----------------------------------------------------------------------------------------------");
-            Console.WriteLine(String.Format("{0,3} | {1,-15} | {2,7} | {3,7} |", "ID", "Name", "Strenth", "Price"));
+            Console.WriteLine(String.Format("{0,3} | {1,-15} | {2,15} | {3,7} |", "ID", "Name", "Feature", "Price"));
             Console.WriteLine("----------------------------------------------------------------------------------------------");
-            var weaponNumber = 1;
-            foreach (var weapon in Weapons)
-            {
-                Console.WriteLine(String.Format("{0,3} | {1,-15} | {2,7} | {3,7} |", weaponNumber, weapon.Name, weapon.Strength, weapon.Price));
-                weaponNumber = weaponNumber + 1;
-
-            }
-
-            Console.WriteLine("----------------------------------------------------------------------------------------------");
-            Console.WriteLine($"# You have {Hero.GoldCoin} Gold now!");
-            Console.WriteLine("----------------------------------------------------------------------------------------------");
-            Console.WriteLine("Type the Weapon ID you want to buy :");
-
-            var KeyInput = Hero.GetUserInputNumber();
-            var shopWeapon = Weapons.ElementAtOrDefault(0);
-
-            if (KeyInput > Weapons.Count() || KeyInput <= 0)
-            {
-                Console.WriteLine("Type corrent the Weapon ID !");
-                shopWeapon = null;
-            }
-            else
-            {
-                shopWeapon = Weapons.ElementAtOrDefault(KeyInput - 1);
-            }
    
-
-            if (shopWeapon != null)
+            for (var i = 0; i < Items.Count(); i++)
             {
-                if ((Hero.GoldCoin - shopWeapon.Price) >= 0)
-                {
-                    //Check  Hero's ArmorsBag whether he has this armor
-        
-                    var heroArmorBagCheckQuery = (from heroWeapon in Hero.WeaponsBag
-                                                  where heroWeapon.Name == shopWeapon.Name && heroWeapon.Price == shopWeapon.Price
-                                                  select heroWeapon).ToList();
-                    if (heroArmorBagCheckQuery.Any())
-                    {
-                        Console.WriteLine("Sorry, You have this weapon already!");
-                    }
-                    else
-                    {   //Hero buy armor and put Hero's ArmorsBag
-                        Hero.WeaponsBag.Add(shopWeapon);
-                        Hero.GoldCoin = Hero.GoldCoin - shopWeapon.Price;
-                        Console.WriteLine($"Buying '{shopWeapon.Name}' is Completed!");
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Sorry, you don't have enough Gold !");
-                }
+                Console.WriteLine(String.Format("{0,3} | {1,-15} | {2,15} | {3,7} |", (i + 1), Items[i].Name, Items[i].GetDescription(),Items[i].Price));
             }
-            else
-            {
-                Console.WriteLine("Sorry,No result!");
-            }
-        }
-
-        public void BuyArmor()
-        {
-            //Display weapon list
-            Console.WriteLine("# Armors");
-            Console.WriteLine("----------------------------------------------------------------------------------------------");
-            Console.WriteLine(String.Format("{0,3} | {1,-15} | {2,7} | {3,7} |", "ID", "Name", "Defense", "Price"));
-            Console.WriteLine("----------------------------------------------------------------------------------------------");
-            var armorNumber = 1;
-            foreach (var armor in Armors)
-            {
-                Console.WriteLine(String.Format("{0,3} | {1,-15} | {2,7} | {3,7} |", armorNumber, armor.Name, armor.Defense, armor.Price));
-                armorNumber = armorNumber + 1;
-            }
-
             Console.WriteLine("----------------------------------------------------------------------------------------------");
             Console.WriteLine($"# You have {Hero.GoldCoin} Gold now!");
             Console.WriteLine("----------------------------------------------------------------------------------------------");
-            Console.WriteLine("Type the Armor ID you want to buy :");
-            var KeyInput = Hero.GetUserInputNumber();
 
-            var shopArmor = Armors.ElementAtOrDefault(0);
+            Console.WriteLine("Type Item ID to buy !");
 
-            if (KeyInput > Armors.Count() || KeyInput <= 0)
+            var KeyInputNumber = Hero.GetUserInputNumber();
+            var itemIndex = KeyInputNumber - 1;
+            var item = Items.ElementAtOrDefault(itemIndex);
+
+            if (KeyInputNumber > Items.Count() || KeyInputNumber <= 0)
             {
-                Console.WriteLine("Type corrent the Armor ID !");
-                shopArmor = null;
+                Console.WriteLine("Type corrent the Item ID !");                
             }
             else
             {
-                shopArmor = Armors.ElementAtOrDefault(KeyInput - 1);
+                item = Items.ElementAtOrDefault(itemIndex);
             }
 
-            if (shopArmor != null)
+            if (item != null)
             {
-                if ((Hero.GoldCoin - shopArmor.Price) >= 0)
+                // Check Hero gold balance
+                if (Hero.GoldCoin >= item.Price)
                 {
-                    //Check  Hero's ArmorsBag whether he has this armor
-                    var heroArmorBagCheckQuery = (from heroArmor in Hero.ArmorsBag
-                                                  where heroArmor.Name == shopArmor.Name && heroArmor.Price == shopArmor.Price
-                                                  select heroArmor).ToList();
-                    if (heroArmorBagCheckQuery.Any())
+                    //Check in the hero bag the item in he bought already.
+                    var heroBagDuplicateQuery = (from heroItem in Hero.HeroBag
+                                                 where heroItem.Name == item.Name
+                                                  select heroItem).ToList();
+                    if (heroBagDuplicateQuery.Any())
                     {
-                        Console.WriteLine("Sorry, You have this armor already!");
+                        Console.WriteLine("Sorry, You got this weapon already!");
                     }
                     else
-                    {   //Hero buy armor and put Hero's ArmorsBag
-                        Hero.ArmorsBag.Add(shopArmor);
-                        Hero.GoldCoin = Hero.GoldCoin - shopArmor.Price;
-                        Console.WriteLine($"Buying '{shopArmor.Name}' is Completed!");
-                    }
+                    {
+                        //pay for items amd add it to Herobag
+                        Hero.GoldCoin -= item.Price;
+                        Hero.HeroBag.Add(item);
+                        Console.WriteLine($"Buying '{item.Name}' is completed!");
+                    }                        
                 }
                 else
                 {
-                    Console.WriteLine("Sorry, you don't have enough Gold !");
+                    Console.WriteLine("You don't have enough gold coins.");
                 }
             }
-            else
-            {
-                Console.WriteLine("Sorry,No result!");
-            }
+
         }
 
         public void BuyPotion()
@@ -241,12 +165,13 @@ namespace OOP_RPG
 
             if (shopPotion != null)
             {
-                if ((Hero.GoldCoin - shopPotion.Price) >= 0)                {
-                    
-                        Hero.PotionsBag.Add(shopPotion);
-                        Hero.GoldCoin = Hero.GoldCoin - shopPotion.Price;
-                        Console.WriteLine($"Buying '{shopPotion.Name}' is Completed!");
-                   
+                if ((Hero.GoldCoin - shopPotion.Price) >= 0)
+                {
+
+                    Hero.PotionsBag.Add(shopPotion);
+                    Hero.GoldCoin = Hero.GoldCoin - shopPotion.Price;
+                    Console.WriteLine($"Buying '{shopPotion.Name}' is Completed!");
+
                 }
                 else
                 {
@@ -259,105 +184,63 @@ namespace OOP_RPG
             }
         }
 
-        public void SellWeapon()
+        public void SellItem()
         {
-            var weaponSaleDiscount = 0.5;
-            Console.WriteLine("# Sell Weapon");
+            Console.WriteLine("# Sell Item");
             Console.WriteLine("----------------------------------------------------------------------------------------------");
-            Console.WriteLine(String.Format("{0,3} | {1,-15} | {2,10} | {3,10} |", "ID", "Name", "Strenth", "Sell Price"));
-            Console.WriteLine("----------------------------------------------------------------------------------------------");
-
-            if (Hero.WeaponsBag.Count() != 0 )
-            {
-                for (var i = 0; i < Hero.WeaponsBag.Count(); i++)
-                {
-                    Console.WriteLine(String.Format("{0,3} | {1,-15} | {2,10} | {3,10} |", i + 1, Hero.WeaponsBag[i].Name, Hero.WeaponsBag[i].Strength, Convert.ToInt32(Hero.WeaponsBag[i].Price * weaponSaleDiscount)));
-
-                }
-                Console.WriteLine("----------------------------------------------------------------------------------------------");
-                Console.WriteLine($"# You have {Hero.GoldCoin} Gold now!");
-                Console.WriteLine("----------------------------------------------------------------------------------------------");
-                Console.WriteLine("Type the Weapon ID you want to Sell in the bag :");
-
-                var KeyInput = Hero.GetUserInputNumber();
-
-
-                if (KeyInput > Weapons.Count() || KeyInput <= 0)
-                {
-                    Console.WriteLine("Type corrent the Weapon ID !");
-
-                }
-                else
-                {
-                    Hero.GoldCoin = Hero.GoldCoin + (Convert.ToInt32(Hero.WeaponsBag[KeyInput - 1].Price * weaponSaleDiscount));
-
-                    if (Hero.EquippedWeapon != null)
-                    {
-                        if (Hero.WeaponsBag[KeyInput - 1].Name == Hero.EquippedWeapon.Name)
-                        {
-                            Hero.EquippedWeapon = null;
-                        }
-                    }
-                        
-                    Hero.WeaponsBag.Remove(Hero.WeaponsBag[KeyInput - 1]);
-                }
-               
-            } 
-            else
-            {
-                Console.WriteLine("Nothing to sell");
-                Console.WriteLine("----------------------------------------------------------------------------------------------");
-            }                 
-        }
-
-        public void SellArmor()
-        {
-            var armorSaleDiscount = 0.5;
-
-            Console.WriteLine("# Sell Armors");
-            Console.WriteLine("----------------------------------------------------------------------------------------------");
-            Console.WriteLine(String.Format("{0,3} | {1,-15} | {2,10} | {3,10} |", "ID", "Name", "Defense", "Sell Price"));
+            Console.WriteLine(String.Format("{0,3} | {1,-15} | {2,15} | {3,7} |", "ID", "Name", "Feature", "Price"));
             Console.WriteLine("----------------------------------------------------------------------------------------------");
 
-            if (Hero.ArmorsBag.Count() != 0)
+            if (Hero.HeroBag.Count() != 0)
             {
-                for (var i = 0; i < Hero.ArmorsBag.Count(); i++)
+                for (var i = 0; i < Hero.HeroBag.Count(); i++)
                 {
-                    Console.WriteLine(String.Format("{0,3} | {1,-15} | {2,10} | {3,10} |", i + 1, Hero.ArmorsBag[i].Name, Hero.ArmorsBag[i].Defense, Convert.ToInt32(Hero.ArmorsBag[i].Price * armorSaleDiscount)));
+                    Console.WriteLine(String.Format("{0,3} | {1,-15} | {2,15} | {3,7} |", (i + 1), Hero.HeroBag[i].Name, Hero.HeroBag[i].GetDescription(), Hero.HeroBag[i].Price));
                 }
-
-                Console.WriteLine("----------------------------------------------------------------------------------------------");
-                Console.WriteLine($"# You have {Hero.GoldCoin} Gold now!");
-                Console.WriteLine("----------------------------------------------------------------------------------------------");
-                Console.WriteLine("Type the Armor ID you want to Sell :");
-
-                var KeyInput = Hero.GetUserInputNumber();
-
-                if (KeyInput > Weapons.Count() || KeyInput <= 0)
-                {
-                    Console.WriteLine("Type corrent the Armor ID !");
-
-                }
-                else
-                {
-                    Hero.GoldCoin = Hero.GoldCoin + (Convert.ToInt32(Hero.ArmorsBag[KeyInput - 1].Price * armorSaleDiscount));
-
-                    if (Hero.EquippedArmor != null)
-                    {
-                        if (Hero.ArmorsBag[KeyInput - 1].Name == Hero.EquippedArmor.Name)
-                        {
-                            Hero.EquippedArmor = null;
-                        }
-                    }
-                        
-                    Hero.ArmorsBag.Remove(Hero.ArmorsBag[KeyInput - 1]);
-                }
-            } 
-            else
-            {
-                Console.WriteLine("Nothing to sell in the bag");
-                Console.WriteLine("----------------------------------------------------------------------------------------------");
             }
-        }
-    }  
+            else
+            {
+                Console.WriteLine("You don't have any item");
+            }
+            
+            Console.WriteLine("----------------------------------------------------------------------------------------------");
+            Console.WriteLine($"# You have {Hero.GoldCoin} Gold now!");
+            Console.WriteLine("----------------------------------------------------------------------------------------------");
+            Console.WriteLine("Type the Item ID to sell !");
+            var KeyInputNumber = Hero.GetUserInputNumber();
+
+
+            if (KeyInputNumber > Hero.HeroBag.Count() || KeyInputNumber <= 0)
+            {
+                Console.WriteLine("Type corrent the Item ID !");
+            }
+            else
+            {                
+                var itemIndex = KeyInputNumber - 1;
+                var item = Hero.HeroBag.ElementAtOrDefault(itemIndex);
+                //The claculate sell price of item
+                Hero.GoldCoin = Hero.GoldCoin + (Convert.ToInt32(Hero.HeroBag[itemIndex].Price * 0.5));
+
+                if (Hero.EquippedWeapon != null)
+                {
+                    if (Hero.EquippedWeapon.Name == Hero.HeroBag[itemIndex].Name)
+                    {
+                        Hero.EquippedWeapon = null;
+                    }
+                }
+
+                if (Hero.EquippedArmor != null)
+                {
+                    if (Hero.EquippedArmor.Name == Hero.HeroBag[itemIndex].Name)
+                    {
+                        Hero.EquippedArmor = null;
+                    }
+                }
+
+                Console.WriteLine($"'{Hero.HeroBag[itemIndex].Name}' was sold out, youn earned {Convert.ToInt32(Hero.HeroBag[itemIndex].Price * 0.5)} gold ");
+                Hero.HeroBag.Remove(Hero.HeroBag[itemIndex]);              
+                
+            }
+        }        
+    }
 }

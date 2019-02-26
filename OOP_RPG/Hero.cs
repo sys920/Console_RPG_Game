@@ -12,10 +12,11 @@ namespace OOP_RPG
         public int Defense { get; }
         public int OriginalHP { get; }
         public int CurrentHP { get; set; }
-        public Weapon EquippedWeapon { get; set; }
-        public Armor EquippedArmor { get; set; }
-        public List<Armor> ArmorsBag { get; set; }
-        public List<Weapon> WeaponsBag { get; set; }
+    
+        public InterfaceOfWeapon EquippedWeapon { get; set; }
+        public InterfaceOfArmor EquippedArmor { get; set; }
+        public InterfaceOfShield EquippedShield { get; set; }
+        public List<InterfaceOfItemShop> HeroBag { get; private set; }
         public List<Potion> PotionsBag { get; set; }
         public int GoldCoin { get; set; }
 
@@ -28,8 +29,8 @@ namespace OOP_RPG
         */
         public Hero()
         {
-            ArmorsBag = new List<Armor>();
-            WeaponsBag = new List<Weapon>();
+
+            HeroBag = new List<InterfaceOfItemShop>();
             PotionsBag = new List<Potion>();
             Strength = 2;
             Defense = 3;
@@ -46,17 +47,12 @@ namespace OOP_RPG
             Console.WriteLine($"***** HERO { this.Name}'s STATS *****");
             Console.WriteLine("----------------------------------------------------------------------------------------------");
 
-            Console.WriteLine($"# Strength: {this.Strength} {(this.EquippedWeapon == null ? "" : "(+" + this.EquippedWeapon.Strength + ")")}");
-
-            
-
-            Console.WriteLine($"# Defense: {this.Defense} {(this.EquippedArmor == null ? "" : "(+" + this.EquippedArmor.Defense +")")}");
-
-            
+            Console.WriteLine($"# Strength: {this.Strength} {(this.EquippedWeapon == null ? "" : "(+" + this.EquippedWeapon.Strength + ")")}");            
+            Console.WriteLine($"# Defense armor: {this.Defense} {(this.EquippedArmor == null ? "" : "(+" + this.EquippedArmor.Defense +")")}");
+            Console.WriteLine($"# Defense shield:{(this.EquippedShield == null ? "0": "(+" + this.EquippedShield.Defense + ")")}");
             Console.WriteLine("# Hitpoints: " + this.CurrentHP + "/" + this.OriginalHP);
 
             Console.WriteLine("# Potion(s): ");
-
             DisplayPotion();
 
             Console.WriteLine("# Gold coins: " + this.GoldCoin);
@@ -69,12 +65,14 @@ namespace OOP_RPG
             Console.WriteLine("----------------------------------------------------------------------------------------------");
             Console.WriteLine($"*****  HERO { this.Name}'s INVENTORY ******");
             Console.WriteLine("----------------------------------------------------------------------------------------------");
-            Console.WriteLine("# Weapon Bag:");
 
-            if(this.WeaponsBag.Count() != 0)
+            //Display Weapon Items 
+            Console.WriteLine("# Weapon(s):");
+
+            if(this.GetWeapons().Count() != 0)
             {
                 var weaponNumber = 1;
-                foreach (var weapon in this.WeaponsBag)
+                foreach (var weapon in GetWeapons())
                 {
                     Console.WriteLine($"{weaponNumber}. {weapon.Name} : {weapon.Strength} Strength");
                     weaponNumber += 1;
@@ -85,13 +83,13 @@ namespace OOP_RPG
                 Console.WriteLine(" [ No Weapon in this bag ] ");
             }
 
-            
+            //Display Armor Items
             Console.WriteLine("----------------------------------------------------------------------------------------------");
-            Console.WriteLine("# Armor Bag:");
-            if(this.ArmorsBag.Count() != 0 )
+            Console.WriteLine("# Armor:");
+            if(GetArmors().Count() != 0 )
             {
                 var armorNumber = 1;
-                foreach (var armor in this.ArmorsBag)
+                foreach (var armor in GetArmors())
                 {
                     Console.WriteLine($"{armorNumber}. {armor.Name} : {armor.Defense} Defense");
                     armorNumber += 1;
@@ -101,10 +99,30 @@ namespace OOP_RPG
             {
                 Console.WriteLine(" [ No Armor in this bag ] ");
             }
-            
+
             Console.WriteLine("----------------------------------------------------------------------------------------------");
+
+            //Display Shield Items
+            Console.WriteLine("# Shield:");
+            if (GetShield().Count() != 0)
+            {
+                var shieldNumber = 1;
+                foreach (var shield in GetShield())
+                {
+                    Console.WriteLine($"{shieldNumber}. {shield.Name} : {shield.Defense} Defense");
+                    shieldNumber += 1;
+                }
+            }
+            else
+            {
+                Console.WriteLine(" [ No Shield in this bag ] ");
+            }
+
+            Console.WriteLine("----------------------------------------------------------------------------------------------");
+
+            //Current Equipped Items
             Console.WriteLine("# Current Equipped Item(s):");
-            if(EquippedWeapon != null || EquippedArmor != null)
+            if(EquippedWeapon != null || EquippedArmor != null || EquippedShield != null)
             {
                 if (EquippedWeapon != null)
                 {
@@ -114,57 +132,34 @@ namespace OOP_RPG
                 {
                     Console.WriteLine($" [ Armor ] {EquippedArmor.Name} - {EquippedArmor.Defense} Defense");
                 }
+                if (EquippedShield != null)
+                {
+                    Console.WriteLine($" [ Shield ] {EquippedShield.Name} - {EquippedShield.Defense} Defense");
+                }
+
             }
             else 
             {
                 Console.WriteLine(" [ Nothing was equipped ] ");
-            }
-        
-            Console.WriteLine("----------------------------------------------------------------------------------------------");
-            Console.WriteLine("1-Equip Weapon");
-            Console.WriteLine("2-UnEquip Weapon");
-            Console.WriteLine("3-Equip Armors");
-            Console.WriteLine("4-UnEquip Armors");
-            Console.WriteLine("----------------------------------------------------------------------------------------------");
-            Console.Write("Selct the menu : ");
-
-            var KeyInput = Console.ReadLine();
-
-            if (KeyInput == "1")
-            {               
-                EquipWeapon();
-            }
-            else if (KeyInput == "2")
-            {
-                UnEquipWeapon();
-            }
-            else if (KeyInput == "3")
-            {
-                EquipArmor();
-            }
-            else if (KeyInput == "4")
-            {
-                UnEquipArmor();
-            }
+            }        
+           
         }
 
-        public void EquipWeapon()
+        public void EquipWeapon(int index)
         {
-            if (WeaponsBag.Any())
+            if (GetWeapons().Count() != 0)
             {
-                Console.WriteLine("----------------------------------------------------------------------------------------------");
-                Console.Write("Type the Weapon ID to equip : ");
+                Console.WriteLine("----------------------------------------------------------------------------------------------"); 
 
-                var KeyInput = GetUserInputNumber();
-                
-                if (KeyInput > WeaponsBag.Count() || KeyInput <= 0 )
+                if (index > GetWeapons().Count() || index < 0 )
                 {
-                    Console.WriteLine("Type corrent the Weapon ID !");
+                    Console.WriteLine("Type corrent the weapon Id !");
                 }
                 else
                 {
-                    this.EquippedWeapon = this.WeaponsBag[KeyInput - 1];
-                    Console.WriteLine($"{WeaponsBag[KeyInput - 1].Name} is equipped ");
+                    var weapon = GetWeapons()[index];
+                    this.EquippedWeapon = weapon;
+                    Console.WriteLine($"'{GetWeapons()[index].Name}' is equipped ");
                 }
           
                 Console.WriteLine("----------------------------------------------------------------------------------------------");
@@ -172,7 +167,7 @@ namespace OOP_RPG
             }
             else
             {
-                Console.WriteLine("You don't have any weapon, buy a weapon first at the item shop");
+                Console.WriteLine("You don't have any weapon, or Type corrent weapon Id");
                 Console.ReadKey();
             }
         }
@@ -181,32 +176,32 @@ namespace OOP_RPG
         {
             if (this.EquippedWeapon != null)
             {                             
-                Console.WriteLine($"{this.EquippedWeapon.Name} is now unequipped ");
+                Console.WriteLine($"'{this.EquippedWeapon.Name}' is now unequipped ");
                 this.EquippedWeapon = null;
             }
             else
             {
-                Console.WriteLine("You don't have any weapon equiped");
+                Console.WriteLine("You don't have any weapon equipped");
                 Console.ReadKey();
             }
         }
 
-        public void EquipArmor()
+        public void EquipArmor(int index)
         {
-            if (ArmorsBag.Any())
+            if (GetArmors().Count() != 0)
             {
-                Console.WriteLine("----------------------------------------------------------------------------------------------");
-                Console.WriteLine("Type the armor ID you want to equip : ");
-                var KeyInput = GetUserInputNumber();
-
-                if (KeyInput > ArmorsBag.Count() || KeyInput <=0 )
+                Console.WriteLine("----------------------------------------------------------------------------------------------");   
+                
+                if (index > GetArmors().Count() || index < 0 )
                 {
-                    Console.WriteLine("Type corrent the Armor ID !");
+                    Console.WriteLine("Type corrent the armor Id !");
                 }
                 else
                 {
-                    this.EquippedArmor = this.ArmorsBag[KeyInput - 1];
-                    Console.WriteLine($"{ArmorsBag[KeyInput - 1].Name} is equipped ");
+                    var armor = GetArmors()[index];
+                    this.EquippedArmor = armor;
+                    Console.WriteLine($"'{GetArmors()[index].Name}' is equipped ");
+                   
                 }
                 
                 Console.WriteLine("----------------------------------------------------------------------------------------------");
@@ -214,7 +209,7 @@ namespace OOP_RPG
             }
             else
             {
-                Console.WriteLine("You don't have any armor, buy a weapon first at the item shop");
+                Console.WriteLine("You don't have any armor, or Type corrent armor Id");
                 Console.ReadKey();
             }
         }
@@ -223,12 +218,54 @@ namespace OOP_RPG
         {
             if (this.EquippedArmor != null)
             {
-                Console.WriteLine($"{this.EquippedArmor.Name} is now unequipped ");
+                Console.WriteLine($"'{this.EquippedArmor.Name}' is now unequipped ");
                 this.EquippedArmor = null;
             }
             else
             {
-                Console.WriteLine("You don't have any armor equiped");
+                Console.WriteLine("You don't have any armor equipped");
+                Console.ReadKey();
+            }
+        }
+
+        public void EquipShield(int index)
+        {
+            if (GetShield().Count() != 0)
+            {
+                Console.WriteLine("----------------------------------------------------------------------------------------------");
+
+                if (index > GetShield().Count() || index < 0)
+                {
+                    Console.WriteLine("Type corrent the shield Id !");
+                }
+                else
+                {
+                    var shield = GetShield()[index];
+                    this.EquippedShield = shield;
+                    Console.WriteLine($"'{GetShield()[index].Name}' is equipped ");
+
+                }
+
+                Console.WriteLine("----------------------------------------------------------------------------------------------");
+
+            }
+            else
+            {
+                Console.WriteLine("You don't have any shield, or Type corrent shield Id ");
+                Console.ReadKey();
+            }
+        }
+
+        public void UnEquipShield()
+        {
+            if (this.EquippedShield != null)
+            {
+                Console.WriteLine($"'{this.EquippedShield.Name}' is now unequipped ");
+                this.EquippedShield = null;
+            }
+            else
+            {
+                Console.WriteLine("You don't have any shield equipped");
                 Console.ReadKey();
             }
         }
@@ -333,6 +370,22 @@ namespace OOP_RPG
                 Console.WriteLine($" You don't have any potion");
                 Console.WriteLine("----------------------------------------------------------------------------------------------");
             }
+        }
+
+
+        public IReadOnlyList<InterfaceOfWeapon> GetWeapons()
+        {
+            return HeroBag.Where(p => p is InterfaceOfWeapon).Cast<InterfaceOfWeapon>().ToList();
+        }
+
+        public IReadOnlyList<InterfaceOfArmor> GetArmors()
+        {
+            return HeroBag.Where(p => p is InterfaceOfArmor).Cast<InterfaceOfArmor>().ToList();
+        }
+
+        public IReadOnlyList<InterfaceOfShield> GetShield()
+        {
+            return HeroBag.Where(p => p is InterfaceOfShield).Cast<InterfaceOfShield>().ToList();
         }
     }
 }
