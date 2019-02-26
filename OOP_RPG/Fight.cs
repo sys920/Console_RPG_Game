@@ -191,16 +191,18 @@ namespace OOP_RPG
         private void RunAway()
         {     
             Random randomNum = new Random();
-
+            double trueProbability = 1.0;     
+            
             var DamageCompared = Enemy.Strength - Hero.Defense;            
 
+            //Whether Hero equipped armor or not
             if  (Hero.EquippedArmor != null)
             {
                 DamageCompared = Enemy.Strength - (Hero.Defense + Hero.EquippedArmor.Defense);
             }
 
             var finalDamage = DamageCompared;
-
+            
             if (DamageCompared > 0 )
             {
                 finalDamage = DamageCalculator(DamageCompared);
@@ -214,43 +216,49 @@ namespace OOP_RPG
 
             if (Enemy.Diffculty == MonsterLevel.Easy)
             {
-                if (randomNum.Next(100) < 50)
+                //50% return true
+                trueProbability = 0.5;
+
+                if (randomNum.NextDouble() < trueProbability)
                 {
-                    Console.WriteLine($"You ran away from {MonsterLevel.Medium} monster successfully!");
+                    Console.WriteLine($"You ran away from the monster successfully!");
                 }
                 else
                 {
-                    Console.WriteLine($"You failed to run away, you got {finalDamage} damage(s)");
+                    Console.WriteLine($"Sorry, you failed to run away, you got {finalDamage} damage(s)");
                     Hero.CurrentHP -= finalDamage;
                 } 
                 
             }
             else if(Enemy.Diffculty == MonsterLevel.Medium)
             {
-                if (randomNum.Next(100) < 25)
+                //25% return true
+                trueProbability = 0.25;
+                if (randomNum.NextDouble() < trueProbability)
                 {
-                    Console.WriteLine($"You ran away from {MonsterLevel.Medium} monster successfully!");
+                    Console.WriteLine($"You ran away from the monster successfully!");
                 }
                 else
                 {
-                    Console.WriteLine($"You failed to run away, you got {finalDamage} damage(s)");
+                    Console.WriteLine($"Sorry, you failed to run away, you got {finalDamage} damage(s)");
                     Hero.CurrentHP -= finalDamage;
                 }
             }
             else if (Enemy.Diffculty == MonsterLevel.Hard)
-            {
-                if (randomNum.Next(100) < 5)
+            {     
+                //25% return true
+                trueProbability = 0.05;
+                if (randomNum.NextDouble() < trueProbability)
                 {
-                    Console.WriteLine($"You ran away from {MonsterLevel.Medium} monster successfully!");
+                    Console.WriteLine($"You ran away from the monster successfully!");
                 }
                 else
                 {
-                    Console.WriteLine($"You failed to run away, you got {finalDamage} damage(s)");
+                    Console.WriteLine($"Sorry, you failed to run away, you got {finalDamage} damage(s)");
                     Hero.CurrentHP -= finalDamage;
                 }
                 
             }
-            Console.WriteLine($"Random {randomNum.Next(100)}");
             Console.WriteLine("----------------------------------------------------------------------------------------------");
             Console.WriteLine("Press any key to return to main menu.");
             Console.ReadKey();
