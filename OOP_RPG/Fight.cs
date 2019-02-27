@@ -9,13 +9,14 @@ namespace OOP_RPG
         private List<Monster> Monsters { get; set; }
         private Hero Hero { get; set; }
         private Monster Enemy { get; set; }
-                     
-
-        public Fight(Hero hero, Monster enemy)
+        private AchievementManager AchievementManager { get; set; }
+       
+        public Fight(Hero hero, Monster enemy, AchievementManager achievementManager)
         {
             Hero = hero;
-            Enemy = enemy;           
-        }              
+            Enemy = enemy;
+            AchievementManager = achievementManager;
+        }          
 
         public void Start()
         {
@@ -38,7 +39,8 @@ namespace OOP_RPG
                 Console.WriteLine("1. Fight");
                 Console.WriteLine("2. Use potion");
                 Console.WriteLine("3. Run Away!");
-                Console.Write("Selet the number of menu : ");
+                Console.WriteLine("----------------------------------------------------------------------------------------------");
+                Console.Write("Selet the menu : ");
 
                 var input = Console.ReadLine();
 
@@ -67,9 +69,10 @@ namespace OOP_RPG
             //Calculator Damage when hero equiped Weapon  
             if (Hero.EquippedWeapon != null)
             {
-                DamageCompared = (Hero.Strength + Hero.EquippedWeapon.Strength) - Enemy.Defense;             
+               DamageCompared += Hero.EquippedWeapon.Strength;
             }    
-                     
+
+                                             
             //Hero Attack,  Hero Strength < Enemy Defense
             if (DamageCompared <= 0)
             {
@@ -106,8 +109,15 @@ namespace OOP_RPG
             //Calculator Damage when hero equiped armor  
             if (Hero.EquippedArmor != null)
             {
-                DamageCompared = Enemy.Strength - (Hero.Defense + Hero.EquippedArmor.Defense);              
+                DamageCompared += Hero.EquippedArmor.Defense;              
             }
+
+            //Calculator Damage when hero equiped shield  
+            if (Hero.EquippedShield != null)
+            {
+                DamageCompared += Hero.EquippedShield.Defense;
+            }
+
             //Enemy Attack,  Enemy Strength < Hero Defense
             if (DamageCompared <= 0)
             {
@@ -134,6 +144,8 @@ namespace OOP_RPG
         {
             Console.WriteLine($"# {Enemy.Name} has been defeated!  {Hero.Name} win(s) the battle!");
             Console.WriteLine("----------------------------------------------------------------------------------------------");
+
+            AchievementManager.SavingMonsterKills(Enemy);
 
             var heroRewardGold = RewardCalculator(Enemy.Diffculty);
             Hero.GoldCoin= Hero.GoldCoin + heroRewardGold;

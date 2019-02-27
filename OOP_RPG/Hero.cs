@@ -32,10 +32,10 @@ namespace OOP_RPG
 
             HeroBag = new List<InterfaceOfItemShop>();
             PotionsBag = new List<Potion>();
-            Strength = 2;
-            Defense = 3;
-            OriginalHP = 30;
-            CurrentHP = 30;
+            Strength = 30;
+            Defense = 30;
+            OriginalHP = 40;
+            CurrentHP = 40;
             GoldCoin = 100;
         }
 
