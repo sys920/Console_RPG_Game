@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace OOP_RPG
 {
-    public class ItemShop
+    public class Shop
     {
-        private List<InterfaceOfItemShop> Items { get; set; }
+        private List<IShop> ShopItems { get; set; }
         private List<Potion> Potions { get; set; }
-
         private Hero Hero { get; set; }
 
-        public ItemShop(Hero hero)
+        public Shop(Hero hero)
         {
-            Items = new List<InterfaceOfItemShop>();
+            //Items in the shop 
+            ShopItems = new List<IShop>();
             Potions = new List<Potion>();
             GenerateItems();
             Hero = hero;
@@ -23,23 +23,28 @@ namespace OOP_RPG
 
         private void GenerateItems()
         {
-            Items.Add(new Armor("Leather", 4, 8));
-            Items.Add(new Armor("BreastPlate", 8, 18));
-            Items.Add(new Armor("Augmented Chain", 15, 25));
-            Items.Add(new Armor("CorosPlate", 20, 40));
+            //ArmorName, Defense, Price
+            ShopItems.Add(new Armor("Leather", 4, 8));
+            ShopItems.Add(new Armor("BreastPlate", 8, 20));
+            ShopItems.Add(new Armor("Augmented Chain", 15, 45));
+            ShopItems.Add(new Armor("CorosPlate", 25, 60));
 
-            Items.Add(new Weapon("Recurve bow", 3, 10));
-            Items.Add(new Weapon("BigAxe", 6, 20));
-            Items.Add(new Weapon("XV sword", 15, 30));
-            Items.Add(new Weapon("Arming sword", 25, 50));   
+            //WeaponName, Strength, Price
+            ShopItems.Add(new Weapon("Recurve bow", 3, 9));
+            ShopItems.Add(new Weapon("BigAxe", 6, 22));
+            ShopItems.Add(new Weapon("XV sword", 19, 49));
+            ShopItems.Add(new Weapon("Arming sword", 29, 65));
 
-            Items.Add(new Shield("Wooden Shield", 3, 10));
-            Items.Add(new Shield("Battle Shield", 4, 12));
-            Items.Add(new Shield("Dragon Shield", 7, 15));
+            //ShieldName, Defense, Price
+            ShopItems.Add(new Shield("Wooden Shield", 3, 10));
+            ShopItems.Add(new Shield("Battle Shield", 8, 26));
+            ShopItems.Add(new Shield("Dragon Shield", 15, 40));
 
-            Potions.Add(new Potion("Health Potion", 5, 7));
-            Potions.Add(new Potion("Strong Health Potion", 10, 18));
-            Potions.Add(new Potion("Great Health Potion", 15, 27));
+            //PotionName,HealthRestore, Price
+            Potions.Add(new Potion("Health Potion", 4, 5));
+            Potions.Add(new Potion("Strong Health Potion", 7, 7));
+            Potions.Add(new Potion("Great Health Potion", 14, 10));
+            Potions.Add(new Potion("Gold Health Potion", 19, 13));
         }
 
         public void Start()
@@ -74,37 +79,37 @@ namespace OOP_RPG
         {
             Console.Clear();
             Console.WriteLine("----------------------------------------------------------------------------------------------");
-            Console.WriteLine("# Buy Item");
+            Console.WriteLine("# Buy Item ");
             Console.WriteLine("----------------------------------------------------------------------------------------------");
-            Console.WriteLine(String.Format("{0,3} | {1,-20} | {2,15} | {3,7} |", "ID", "Name", "Feature", "Price"));
+            Console.WriteLine(String.Format("{0,3} | {1,-20} | {2,-7} | {3,-15} | {4,-7} |", "ID", "Name", "Class", "Feature", "Price"));
             Console.WriteLine("----------------------------------------------------------------------------------------------");
    
-            for (var i = 0; i < Items.Count(); i++)
+            for (var i = 0; i < ShopItems.Count(); i++)
             {
-                Console.WriteLine(String.Format("{0,3} | {1,-20} | {2,15} | {3,7} |", (i + 1), Items[i].Name, Items[i].GetDescription(),Items[i].Price));
+                Console.WriteLine(String.Format("{0,3} | {1,-20} | {2,-7} | {3,-15} | {4,-7} |", (i + 1), ShopItems[i].Name, ShopItems[i].GetClass(), ShopItems[i].GetDescription(), ShopItems[i].Price + " Gold"));
             }
+
             Console.WriteLine("----------------------------------------------------------------------------------------------");
             Console.WriteLine($"# You have {Hero.GoldCoin} Gold now!");
             Console.WriteLine("----------------------------------------------------------------------------------------------");
-
             Console.Write("# Select Item ID to buy : ");
 
             var KeyInputNumber = Hero.GetUserInputNumber();
             var itemIndex = KeyInputNumber - 1;
-            var item = Items.ElementAtOrDefault(itemIndex);
+            var item = ShopItems.ElementAtOrDefault(itemIndex);
 
-            if (KeyInputNumber > Items.Count() || KeyInputNumber <= 0)
+            if (KeyInputNumber > ShopItems.Count() || KeyInputNumber <= 0)
             {
                 Console.WriteLine("# Select corrent the Item ID : ");                
             }
             else
             {
-                item = Items.ElementAtOrDefault(itemIndex);
+                item = ShopItems.ElementAtOrDefault(itemIndex);
             }
 
             if (item != null)
             {
-                // Check Hero gold balance
+                //Check Hero gold balance
                 if (Hero.GoldCoin >= item.Price)
                 {
                     //Check in the hero bag the item in he bought already.
@@ -139,26 +144,25 @@ namespace OOP_RPG
             Console.WriteLine("----------------------------------------------------------------------------------------------");
             Console.WriteLine("# Potions");
             Console.WriteLine("----------------------------------------------------------------------------------------------");
-            Console.WriteLine(String.Format("{0,3} | {1,-25} | {2,7} | {3,7} |", "ID", "Name", "Healing", "Price"));
+            Console.WriteLine(String.Format("{0,3} | {1,-25} | {2,-7} | {3,-7} |", "ID", "Name", "Healing", "Price"));
             Console.WriteLine("----------------------------------------------------------------------------------------------");
-            var potionNumber = 1;
-            foreach (var potion in Potions)
+
+            for(var i = 0; i < Potions.Count(); i++)
             {
-                Console.WriteLine(String.Format("{0,3} | {1,-25} | {2,7} | {3,7} |", potionNumber, potion.Name, potion.HealthRestored, potion.Price));
-                potionNumber = potionNumber + 1;
+                Console.WriteLine(String.Format("{0,3} | {1,-25} | {2,-7} | {3,-7} |", i+1, Potions[i].Name, Potions[i].HealthRestored + " HP", Potions[i].Price + " Gold"));
             }
 
             Console.WriteLine("----------------------------------------------------------------------------------------------");
             Console.WriteLine($"# You have {Hero.GoldCoin} Gold now!");
             Console.WriteLine("----------------------------------------------------------------------------------------------");
-            Console.Write("# Select the Potion ID you want to buy :");
+            Console.Write("# Select the Potion ID you want to buy : ");
             var KeyInput = Hero.GetUserInputNumber();
 
             var shopPotion = Potions.ElementAtOrDefault(0);
 
             if (KeyInput > Potions.Count() || KeyInput <= 0)
             {
-                Console.WriteLine("# Select the corrent Potion ID !");
+                Console.WriteLine("# Select the corrent Potion ID : ");
                 shopPotion = null;
             }
             else
@@ -191,19 +195,20 @@ namespace OOP_RPG
         public void SellItem()
         {   
             //Selling discount rate (%)
-            var DiscountRate = 0.5;
+            var discountRate = 0.5;
+
             Console.Clear();
             Console.WriteLine("----------------------------------------------------------------------------------------------");
             Console.WriteLine("# Sell Item");
             Console.WriteLine("----------------------------------------------------------------------------------------------");
-            Console.WriteLine(String.Format("{0,3} | {1,-20} | {2,15} | {3,7} |", "ID", "Name", "Feature", "Price"));
+            Console.WriteLine(String.Format("{0,3} | {1,-20} | {2,-7} | {3,-15} | {4,-7} |", "ID", "Name", "Class", "Feature", "Price"));
             Console.WriteLine("----------------------------------------------------------------------------------------------");
 
             if (Hero.HeroBag.Count() != 0)
             {
                 for (var i = 0; i < Hero.HeroBag.Count(); i++)
                 {
-                    Console.WriteLine(String.Format("{0,3} | {1,-20} | {2,15} | {3,7} |", (i + 1), Hero.HeroBag[i].Name, Hero.HeroBag[i].GetDescription(), Hero.HeroBag[i].Price));
+                    Console.WriteLine(String.Format("{0,3} | {1,-20} | {2,-7} | {3,-15} | {4,-7} |", (i + 1), Hero.HeroBag[i].Name, Hero.HeroBag[i].GetClass(),  Hero.HeroBag[i].GetDescription(), Hero.HeroBag[i].Price + " Gold"));
                 }
             }
             else
@@ -214,7 +219,7 @@ namespace OOP_RPG
             Console.WriteLine("----------------------------------------------------------------------------------------------");
             Console.WriteLine($"# You have {Hero.GoldCoin} Gold now!");
             Console.WriteLine("----------------------------------------------------------------------------------------------");
-            Console.WriteLine($"Selling price is {DiscountRate*100}% off of origin price ");
+            Console.WriteLine($"Selling price is {discountRate * 100}% off of origin price ");
             Console.Write("# Select the Item ID to sell : ");
             var KeyInputNumber = Hero.GetUserInputNumber();
 
@@ -230,6 +235,7 @@ namespace OOP_RPG
                 //The claculate sell price of item
                 Hero.GoldCoin = Hero.GoldCoin + (Convert.ToInt32(Hero.HeroBag[itemIndex].Price * 0.5));
 
+                //Check to remove the EquippedItems when it sells  
                 if (Hero.EquippedWeapon != null)
                 {
                     if (Hero.EquippedWeapon.Name == Hero.HeroBag[itemIndex].Name)
@@ -244,11 +250,19 @@ namespace OOP_RPG
                     {
                         Hero.EquippedArmor = null;
                     }
-                }                
-                Console.WriteLine($"'{Hero.HeroBag[itemIndex].Name}' was sold, youn earned {Convert.ToInt32(Hero.HeroBag[itemIndex].Price * DiscountRate)} gold ");
+                }
+
+                if (Hero.EquippedShield != null)
+                {
+                    if (Hero.EquippedShield.Name == Hero.HeroBag[itemIndex].Name)
+                    {
+                        Hero.EquippedShield = null;
+                    }
+                }
+
+                Console.WriteLine($"'{Hero.HeroBag[itemIndex].Name}' was sold, youn earned {Convert.ToInt32(Hero.HeroBag[itemIndex].Price * discountRate)} gold ");
                 Console.WriteLine("----------------------------------------------------------------------------------------------");
-                Hero.HeroBag.Remove(Hero.HeroBag[itemIndex]);              
-                
+                Hero.HeroBag.Remove(Hero.HeroBag[itemIndex]);          
             }
         }        
     }

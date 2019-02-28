@@ -5,7 +5,7 @@ using System.Linq;
 namespace OOP_RPG
 {
     public class Fight
-    {
+    {      
         private List<Monster> Monsters { get; set; }
         private Hero Hero { get; set; }
         private Monster Enemy { get; set; }
@@ -24,17 +24,34 @@ namespace OOP_RPG
             Console.WriteLine("----------------------------------------------------------------------------------------------");
             Console.WriteLine($"***** HERO VS ENEMY *****");
             Console.WriteLine("----------------------------------------------------------------------------------------------");
-
-            Console.WriteLine($"# Remember, Monster '{Enemy.Name}' is {Enemy.Diffculty} Level");
-                  
+            Console.WriteLine($"# Remember, Monster '{Enemy.Name}' is {Enemy.Diffculty} Level");                  
                        
             while (Enemy.CurrentHP > 0 && Hero.CurrentHP > 0)
             {
-                Console.WriteLine($"# {Hero.Name}, You got the power : Strength({Hero.Strength}), Defense({Hero.Defense}), HP({Hero.CurrentHP})");
+                //  When Hero has equipped items, Add defense and strength ability
+                var EquippedWeaponStrength = 0;
+                var EquippedArmorDefense = 0;
+                var EquippedShieldDefense = 0;
+
+                if ( Hero.EquippedWeapon != null)
+                {
+                    EquippedWeaponStrength = Hero.EquippedWeapon.Strength;
+                }
+
+                if (Hero.EquippedArmor != null)
+                {
+                    EquippedArmorDefense = Hero.EquippedArmor.Defense;
+                }
+
+                if (Hero.EquippedShield != null)
+                {
+                    EquippedShieldDefense = Hero.EquippedShield.Defense;
+                }
+
+                Console.WriteLine($"# {Hero.Name}, You got the power : Strength({Hero.Strength + EquippedWeaponStrength}), Defense({Hero.Defense + EquippedArmorDefense + EquippedShieldDefense}), HP({Hero.CurrentHP})");
                 Console.WriteLine($"# You've encountered a '{Enemy.Name}' monster! : Strength({Enemy.Strength}), Defense({Enemy.Defense}), HP({Enemy.CurrentHP})");
 
                 Console.WriteLine($"# What will you do?");
-
                 Console.WriteLine("----------------------------------------------------------------------------------------------");
                 Console.WriteLine("1. Fight");
                 Console.WriteLine("2. Use potion");
@@ -55,9 +72,16 @@ namespace OOP_RPG
                 else if (input == "3")
                 {
                     RunAway();
-                    break;
-                }
+                    //After hero runaway frome the game get out of this while Loop
+                    break;                 
+                }               
             }
+
+            //Check Hero currentHP to restart the game or go main menu 
+            if ( Hero.CurrentHP <= 0)
+            {
+                Lose();
+            }                
         }
 
         private void HeroTurn()
@@ -71,7 +95,6 @@ namespace OOP_RPG
             {
                DamageCompared += Hero.EquippedWeapon.Strength;
             }    
-
                                              
             //Hero Attack,  Hero Strength < Enemy Defense
             if (DamageCompared <= 0)
@@ -79,12 +102,14 @@ namespace OOP_RPG
                 finalDamage = 1;
                 Enemy.CurrentHP -= finalDamage;
             }
+
             //Hero Hero Attack, Hero Strength > Enemy Defense
             else
             {
                 finalDamage = DamageCalculator(DamageCompared);
                 Enemy.CurrentHP -= finalDamage;
             }
+
             Console.WriteLine("----------------------------------------------------------------------------------------------");
 
             //Hero attack message
@@ -109,13 +134,13 @@ namespace OOP_RPG
             //Calculator Damage when hero equiped armor  
             if (Hero.EquippedArmor != null)
             {
-                DamageCompared += Hero.EquippedArmor.Defense;              
+                DamageCompared -= Hero.EquippedArmor.Defense;              
             }
 
             //Calculator Damage when hero equiped shield  
             if (Hero.EquippedShield != null)
             {
-                DamageCompared += Hero.EquippedShield.Defense;
+                DamageCompared -= Hero.EquippedShield.Defense;
             }
 
             //Enemy Attack,  Enemy Strength < Hero Defense
@@ -123,11 +148,10 @@ namespace OOP_RPG
             {
                 finalDamage = 1;
                 Hero.CurrentHP -= finalDamage;
-            }
-            //Enemy  Attack  Enemy Strength > Hero Defense
+            }            
             else
-            {
-                finalDamage = DamageCalculator(DamageCompared);
+            {//Enemy  Attack  Enemy Strength > Hero Defense
+                finalDamage = DamageCalculator(DamageCompared);               
                 Hero.CurrentHP -= finalDamage;
             }
 
@@ -160,9 +184,12 @@ namespace OOP_RPG
 
         private void Lose()
         {
-            Console.WriteLine("# You've been defeated! :(  GAME OVER!!!");
+            Console.WriteLine("----------------------------------------------------------------------------------------------");
+            Console.WriteLine("# You've been defeated! :(  GAME OVER !!!");
+            Console.WriteLine("----------------------------------------------------------------------------------------------");
             Console.WriteLine("Press any key to restart the game");
             Console.ReadKey();
+
             var game = new Game();
             game.Start();
         }
@@ -183,10 +210,13 @@ namespace OOP_RPG
             else if (Enemy.Diffculty == MonsterLevel.Hard)
             {
                 getHeroGold = getRandomNumber.Next(21, 31);                
-            }          
+            }
+            else
+            {
+                throw new NotImplementedException("Diffculty not implement");
+            }
             
-            return getHeroGold;
-           
+            return getHeroGold;           
         }
 
         private int DamageCalculator(int DamageCompared)
@@ -205,27 +235,33 @@ namespace OOP_RPG
             Random randomNum = new Random();
             double trueProbability = 1.0;     
             
-            var DamageCompared = Enemy.Strength - Hero.Defense;            
+            var DamageCompared = Enemy.Strength - Hero.Defense;
+            var finalDamage = DamageCompared;
 
             //Whether Hero equipped armor or not
             if  (Hero.EquippedArmor != null)
             {
-                DamageCompared = Enemy.Strength - (Hero.Defense + Hero.EquippedArmor.Defense);
+                DamageCompared -= Hero.EquippedArmor.Defense;
             }
 
-            var finalDamage = DamageCompared;
-            
+            //Calculator Damage when hero equiped shield  
+            if (Hero.EquippedShield != null)
+            {
+                DamageCompared -= Hero.EquippedShield.Defense;
+            }     
+
             if (DamageCompared > 0 )
             {
                 finalDamage = DamageCalculator(DamageCompared);
             }
             else
             {
-                finalDamage = -1;
+                finalDamage = 1;
             }
 
             Console.WriteLine("----------------------------------------------------------------------------------------------");
 
+            //When hero choose to run away, get a final damage or nothing base on random chance 
             if (Enemy.Diffculty == MonsterLevel.Easy)
             {
                 //50% return true
@@ -269,12 +305,16 @@ namespace OOP_RPG
                     Console.WriteLine($"Sorry, you failed to run away, you got {finalDamage} damage(s)");
                     Hero.CurrentHP -= finalDamage;
                 }
-                
+
             }
+            else
+            {
+                throw new NotImplementedException($"Diffculty not implement");
+            }
+
             Console.WriteLine("----------------------------------------------------------------------------------------------");
             Console.WriteLine("Press any key to return to main menu.");
             Console.ReadKey();
-        }
-        
+        }        
     }
 }

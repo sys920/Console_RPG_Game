@@ -1,12 +1,12 @@
-namespace OOP_RPG
+﻿namespace OOP_RPG
 {
-    public class Armor : IArmor
+    public class Shield : IShield
     {
         public string Name { get; }
         public int Defense { get; }
         public int Price { get; }
-        
-        public Armor(string name, int defense, int price)
+
+        public Shield (string name, int defense, int price)
         {
             Name = name;
             Defense = defense;
@@ -15,12 +15,12 @@ namespace OOP_RPG
 
         public string GetDescription()
         {
-            return $"Defense ({Defense})";            
+            return $"Defense ({Defense})";
         }
 
         public string GetClass()
         {
-            return "Armor";
+            return "Shield";
         }
     }
 }

@@ -13,10 +13,11 @@ namespace OOP_RPG
         public int OriginalHP { get; }
         public int CurrentHP { get; set; }
     
-        public InterfaceOfWeapon EquippedWeapon { get; set; }
-        public InterfaceOfArmor EquippedArmor { get; set; }
-        public InterfaceOfShield EquippedShield { get; set; }
-        public List<InterfaceOfItemShop> HeroBag { get; private set; }
+        public IWeapon EquippedWeapon { get; set; }
+        public IArmor EquippedArmor { get; set; }
+        public IShield EquippedShield { get; set; }
+
+        public List<IShop> HeroBag { get; private set; }
         public List<Potion> PotionsBag { get; set; }
         public int GoldCoin { get; set; }
 
@@ -29,14 +30,23 @@ namespace OOP_RPG
         */
         public Hero()
         {
-
-            HeroBag = new List<InterfaceOfItemShop>();
+            HeroBag = new List<IShop>();
             PotionsBag = new List<Potion>();
-            Strength = 30;
-            Defense = 30;
-            OriginalHP = 40;
-            CurrentHP = 40;
-            GoldCoin = 100;
+            
+            //Balanced Hro
+            Strength = 9;
+            Defense = 11;
+            OriginalHP = 30;
+            CurrentHP = 30;
+            GoldCoin = 10;
+  
+            //Test Hero 
+            //Strength = 50;
+            //Defense = 50;
+            //OriginalHP = 100;
+            //CurrentHP = 100;
+            //GoldCoin = 100;
+
         }
 
         //These are the Methods of our Class.
@@ -67,80 +77,85 @@ namespace OOP_RPG
             Console.WriteLine("----------------------------------------------------------------------------------------------");
 
             //Display Weapon Items 
-            Console.WriteLine("# Weapon(s):");
+            Console.WriteLine("#####  Weapon(s) Bag  #####");
+            Console.WriteLine("----------------------------------------------------------------------------------------------");
 
-            if(this.GetWeapons().Count() != 0)
+            if (this.GetWeapons().Count() != 0)
             {
                 var weaponNumber = 1;
                 foreach (var weapon in GetWeapons())
                 {
-                    Console.WriteLine($"{weaponNumber}. {weapon.Name} : {weapon.Strength} Strength");
+                    Console.WriteLine(String.Format("{0,3} | {1,-20} | {2,-15} |", weaponNumber, weapon.Name, weapon.Strength + " Strength"));
                     weaponNumber += 1;
                 }
             }
             else
             {
-                Console.WriteLine(" [ No Weapon in this bag ] ");
+                Console.WriteLine(" Nothing ");
             }
 
             //Display Armor Items
             Console.WriteLine("----------------------------------------------------------------------------------------------");
-            Console.WriteLine("# Armor:");
-            if(GetArmors().Count() != 0 )
+            Console.WriteLine("#####  Armor(s) Bag  #####");
+            Console.WriteLine("----------------------------------------------------------------------------------------------");
+            if (GetArmors().Count() != 0 )
             {
                 var armorNumber = 1;
                 foreach (var armor in GetArmors())
-                {
-                    Console.WriteLine($"{armorNumber}. {armor.Name} : {armor.Defense} Defense");
+                {            
+                    Console.WriteLine(String.Format("{0,3} | {1,-20} | {2,-15} |", armorNumber, armor.Name, armor.Defense + " Defense"));
                     armorNumber += 1;
                 }
             }
             else
             {
-                Console.WriteLine(" [ No Armor in this bag ] ");
+                Console.WriteLine(" Nothing ");
             }
 
-            Console.WriteLine("----------------------------------------------------------------------------------------------");
-
             //Display Shield Items
-            Console.WriteLine("# Shield:");
+            Console.WriteLine("----------------------------------------------------------------------------------------------");
+            Console.WriteLine("#####  Shield(s) Bag  #####");
+            Console.WriteLine("----------------------------------------------------------------------------------------------");
             if (GetShield().Count() != 0)
             {
                 var shieldNumber = 1;
                 foreach (var shield in GetShield())
-                {
-                    Console.WriteLine($"{shieldNumber}. {shield.Name} : {shield.Defense} Defense");
+                {   
+                    Console.WriteLine(String.Format("{0,3} | {1,-20} | {2,-15} |", shieldNumber, shield.Name, shield.Defense + " Defense"));
                     shieldNumber += 1;
                 }
             }
             else
             {
-                Console.WriteLine(" [ No Shield in this bag ] ");
+                Console.WriteLine(" Nothing ");
             }
 
-            Console.WriteLine("----------------------------------------------------------------------------------------------");
-
             //Current Equipped Items
-            Console.WriteLine("# Current Equipped Item(s):");
-            if(EquippedWeapon != null || EquippedArmor != null || EquippedShield != null)
+            Console.WriteLine("----------------------------------------------------------------------------------------------");
+            Console.WriteLine("#####  Current Equipped Item(s)  #####");
+            Console.WriteLine("----------------------------------------------------------------------------------------------");
+            if (EquippedWeapon != null || EquippedArmor != null || EquippedShield != null)
             {
                 if (EquippedWeapon != null)
                 {
-                    Console.WriteLine($" [ Weapon] {EquippedWeapon.Name} - {EquippedWeapon.Strength} Strenth");
+                    Console.WriteLine(String.Format(" {0,-8} | {1,-20} | {2,-15} |", "[Weapon]", EquippedWeapon.Name, "+"+EquippedWeapon.Strength + " Strenth"));
+                    Console.WriteLine("----------------------------------------------------------------------------------------------");
                 }
                 if (EquippedArmor != null)
                 {
-                    Console.WriteLine($" [ Armor ] {EquippedArmor.Name} - {EquippedArmor.Defense} Defense");
+                    Console.WriteLine(String.Format(" {0,-8} | {1,-20} | {2,-15} |", "[Armor]", EquippedArmor.Name, "+"+EquippedArmor.Defense + " Defense"));
+                    Console.WriteLine("----------------------------------------------------------------------------------------------");
                 }
                 if (EquippedShield != null)
                 {
-                    Console.WriteLine($" [ Shield ] {EquippedShield.Name} - {EquippedShield.Defense} Defense");
+                    Console.WriteLine(String.Format(" {0,-8} | {1,-20} | {2,-15} |", "[Shield]", EquippedShield.Name, "+"+ EquippedShield.Defense + " Defense"));
+                    Console.WriteLine("----------------------------------------------------------------------------------------------");
                 }
-
             }
             else 
             {
-                Console.WriteLine(" [ Nothing was equipped ] ");
+                Console.WriteLine(" Nothing ");
+                Console.WriteLine("----------------------------------------------------------------------------------------------");
             }        
            
         }
@@ -285,8 +300,7 @@ namespace OOP_RPG
                 }
                 else
                 {
-                    Console.Write("Type the number only !:");
-                   
+                    Console.Write("Type the number only or '0' to exit : ");                   
                 }
             }
             return keyInputResult;
@@ -363,6 +377,7 @@ namespace OOP_RPG
                     PotionsBag.Remove(usingPotionQuery);
 
                     Console.WriteLine($"Drink '{potionQuery[KeyInput - 1].Name}' successfully!");
+                    Console.WriteLine("----------------------------------------------------------------------------------------------");
                 }
             }
             else
@@ -371,21 +386,21 @@ namespace OOP_RPG
                 Console.WriteLine("----------------------------------------------------------------------------------------------");
             }
         }
-
-
-        public IReadOnlyList<InterfaceOfWeapon> GetWeapons()
+                       
+        public IReadOnlyList<IWeapon> GetWeapons()
         {
-            return HeroBag.Where(p => p is InterfaceOfWeapon).Cast<InterfaceOfWeapon>().ToList();
+            return HeroBag.Where(p => p is IWeapon).Cast<IWeapon>().ToList();
         }
 
-        public IReadOnlyList<InterfaceOfArmor> GetArmors()
+        public IReadOnlyList<IArmor> GetArmors()
         {
-            return HeroBag.Where(p => p is InterfaceOfArmor).Cast<InterfaceOfArmor>().ToList();
+            return HeroBag.Where(p => p is IArmor).Cast<IArmor>().ToList();
         }
 
-        public IReadOnlyList<InterfaceOfShield> GetShield()
+        public IReadOnlyList<IShield> GetShield()
         {
-            return HeroBag.Where(p => p is InterfaceOfShield).Cast<InterfaceOfShield>().ToList();
+            return HeroBag.Where(p => p is IShield).Cast<IShield>().ToList();
         }
+
     }
 }

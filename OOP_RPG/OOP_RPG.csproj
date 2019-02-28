@@ -49,11 +49,11 @@
     <Compile Include="Fight.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Hero.cs" />
-    <Compile Include="InterfaceOfArmor.cs" />
-    <Compile Include="InterfaceOfItemShop.cs" />
-    <Compile Include="InterfaceOfShield.cs" />
-    <Compile Include="InterfaceOfWeapon.cs" />
-    <Compile Include="ItemShop.cs" />
+    <Compile Include="IArmor.cs" />
+    <Compile Include="IShop.cs" />
+    <Compile Include="IShield.cs" />
+    <Compile Include="IWeapon.cs" />
+    <Compile Include="Shop.cs" />
     <Compile Include="Monster.cs" />
     <Compile Include="MonsterLevel.cs" />
     <Compile Include="MonsterOfTheDay.cs" />

@@ -18,9 +18,9 @@ namespace OOP_RPG
         {
             Console.Clear();
             Console.WriteLine("----------------------------------------------------------------------------------------------");
-            Console.WriteLine("Welcome hero!");
+            Console.WriteLine("*******  Welcome Hero!  *******");
             Console.WriteLine("----------------------------------------------------------------------------------------------");
-            Console.WriteLine("Please enter your name:");
+            Console.Write("Please enter your name : ");
 
             Hero.Name = Console.ReadLine().ToUpper();
             Console.WriteLine("----------------------------------------------------------------------------------------------");
@@ -35,11 +35,11 @@ namespace OOP_RPG
         {
             var input = "0";
 
-            while (input != "8")
+            while (input != "9")
             {
                 Console.Clear();
                 Console.WriteLine("----------------------------------------------------------------------------------------------");
-                Console.WriteLine($"***** Role Playing Game Menu  *****");
+                Console.WriteLine($"***** Role Playing Game  V 1.0  *****");
                 Console.WriteLine("----------------------------------------------------------------------------------------------");
                 Console.WriteLine("1. View Hero Stats");
                 Console.WriteLine("2. View Hero Inventory");
@@ -47,8 +47,8 @@ namespace OOP_RPG
                 Console.WriteLine("4. Items Shop");
                 Console.WriteLine("5. Today's Monsters");
                 Console.WriteLine("6. Game Quest");
-                Console.WriteLine("7. Acheivement");
-                Console.WriteLine("8. Exit");
+                Console.WriteLine("7. Acheivement");           
+                Console.WriteLine("9. Exit");
                 Console.WriteLine("----------------------------------------------------------------------------------------------");
                 Console.Write("# Selet the menu : ");
                 input = Console.ReadLine();
@@ -81,6 +81,10 @@ namespace OOP_RPG
                 {
                     this.DisplayAchivement();
                 }
+                else if (input == "8")
+                {
+                   
+                }
 
                 //When Hero lose the game, exit
                 if (Hero.CurrentHP <= 0)
@@ -104,7 +108,6 @@ namespace OOP_RPG
         {
             Hero.ShowInventory();
 
-            Console.WriteLine("----------------------------------------------------------------------------------------------");
             Console.WriteLine("1-Equip Weapon");
             Console.WriteLine("2-UnEquip Weapon");
             Console.WriteLine("3-Equip Armor");
@@ -194,7 +197,7 @@ namespace OOP_RPG
 
         private void BuyItem()
         {
-            var ItemShop = new ItemShop(Hero);
+            var ItemShop = new Shop(Hero);
             ItemShop.Start();
             Console.WriteLine("Press any key to return to main menu.");
             Console.ReadKey();
@@ -220,7 +223,7 @@ namespace OOP_RPG
             AchievementManager.DispalyAchievement();
             Console.WriteLine("Press any key to return to main menu.");
             Console.ReadKey();
-        }
+        }                
     }
 }
 

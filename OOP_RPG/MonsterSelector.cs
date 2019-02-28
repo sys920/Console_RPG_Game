@@ -50,6 +50,8 @@ namespace OOP_RPG
             AddMonster("Wartortle", 7, 5, 8, MonsterLevel.Easy, MonsterOfTheDay.Tuesday);
             AddMonster("LLollPrice", 4, 4, 9, MonsterLevel.Easy, MonsterOfTheDay.Tuesday);
             AddMonster("Kobrisub", 5, 3, 10, MonsterLevel.Easy, MonsterOfTheDay.Tuesday);
+            AddMonster("Pidgeot", 10, 8, 18, MonsterLevel.Medium, MonsterOfTheDay.Wednesday);
+            AddMonster("Rattata", 12, 6, 17, MonsterLevel.Medium, MonsterOfTheDay.Thursday);
             AddMonster("Blastoise", 12, 6, 12, MonsterLevel.Medium, MonsterOfTheDay.Tuesday);
             AddMonster("Charmeleon", 15, 8, 17, MonsterLevel.Medium, MonsterOfTheDay.Tuesday);
             AddMonster("Caterpie", 24, 18, 25, MonsterLevel.Hard, MonsterOfTheDay.Tuesday);
@@ -66,7 +68,7 @@ namespace OOP_RPG
             AddMonster("Pidgeotto", 8, 8, 9, MonsterLevel.Easy, MonsterOfTheDay.Thursday);
             AddMonster("Pidgeot", 10, 8, 18, MonsterLevel.Medium, MonsterOfTheDay.Wednesday);
             AddMonster("Rattata", 12, 6, 17, MonsterLevel.Medium, MonsterOfTheDay.Thursday);
-            AddMonster("Raticate", 21, 16, 25, MonsterLevel.Hard, MonsterOfTheDay.Thursday);
+            AddMonster("PPaticate", 21, 16, 25, MonsterLevel.Hard, MonsterOfTheDay.Thursday);
 
             //Friday-5
             AddMonster("Spearow", 4, 3, 7, MonsterLevel.Easy, MonsterOfTheDay.Friday);
@@ -110,8 +112,7 @@ namespace OOP_RPG
             Console.WriteLine("----------------------------------------------------------------------------------------------");
             Console.WriteLine($"***** The Monsters of {today} *****");
             Console.WriteLine("----------------------------------------------------------------------------------------------");
-            Console.WriteLine(String.Format("{0,3} | {1,-15} | {2,8} | {3,8} | {4,8} |", "No", "Name", "Strength", "Defense", "HP"));
-            
+            Console.WriteLine(String.Format("{0,3} | {1,-15} | {2,8} | {3,8} | {4,8} |", "No", "Name", "Strength", "Defense", "HP"));  
             Console.WriteLine("----------------------------------------------------------------------------------------------");
             var i = 1;
             foreach (var monster in todayMosters)
@@ -121,7 +122,6 @@ namespace OOP_RPG
                 i += 1 ;
             }
             Console.WriteLine("----------------------------------------------------------------------------------------------");
-
         }
     }
 }
