@@ -11,6 +11,6 @@ namespace OOP_RPG
         string Name { get; }
         int Pont { get; }
 
-        bool Check(Hero hero);
+       
     }
 }
