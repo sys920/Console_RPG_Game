@@ -5,6 +5,7 @@
         public string Name { get; }
         public int Defense { get; }
         public int Price { get; }
+        public int Strength { get; }
 
         public Shield (string name, int defense, int price)
         {

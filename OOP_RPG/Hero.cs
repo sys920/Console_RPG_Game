@@ -36,9 +36,9 @@ namespace OOP_RPG
             //Balanced Hro
             Strength = 9;
             Defense = 11;
-            OriginalHP = 30;
-            CurrentHP = 30;
-            GoldCoin = 10;
+            OriginalHP = 3000;
+            CurrentHP = 3000;
+            GoldCoin = 1000;
   
             //Test Hero 
             //Strength = 50;
@@ -80,14 +80,13 @@ namespace OOP_RPG
             Console.WriteLine("#####  Weapon(s) Bag  #####");
             Console.WriteLine("----------------------------------------------------------------------------------------------");
 
-            if (this.GetWeapons().Count() != 0)
+            var unEquippedWeapons = GetWeapons().Where(p => p != EquippedWeapon).ToList();
+            if (unEquippedWeapons.Count() != 0)
             {
-                var weaponNumber = 1;
-                foreach (var weapon in GetWeapons())
+                for (var i = 0; i < unEquippedWeapons.Count(); i++)
                 {
-                    Console.WriteLine(String.Format("{0,3} | {1,-20} | {2,-15} |", weaponNumber, weapon.Name, weapon.Strength + " Strength"));
-                    weaponNumber += 1;
-                }
+                    Console.WriteLine(String.Format("{0,3} | {1,-20} | {2,-15} |", i + 1, unEquippedWeapons[i].Name, unEquippedWeapons[i].Strength + " Strength"));
+                }                               
             }
             else
             {
@@ -98,13 +97,13 @@ namespace OOP_RPG
             Console.WriteLine("----------------------------------------------------------------------------------------------");
             Console.WriteLine("#####  Armor(s) Bag  #####");
             Console.WriteLine("----------------------------------------------------------------------------------------------");
-            if (GetArmors().Count() != 0 )
-            {
-                var armorNumber = 1;
-                foreach (var armor in GetArmors())
-                {            
-                    Console.WriteLine(String.Format("{0,3} | {1,-20} | {2,-15} |", armorNumber, armor.Name, armor.Defense + " Defense"));
-                    armorNumber += 1;
+
+            var unEquippedArmors = GetArmors().Where(p => p != EquippedArmor).ToList();
+            if (unEquippedArmors.Count() != 0 )
+            {  
+                for(var i = 0; i < unEquippedArmors.Count(); i ++ )
+                {
+                    Console.WriteLine(String.Format("{0,3} | {1,-20} | {2,-15} |", i+1, unEquippedArmors[i].Name, unEquippedArmors[i].Defense + " Defense"));
                 }
             }
             else
@@ -116,13 +115,14 @@ namespace OOP_RPG
             Console.WriteLine("----------------------------------------------------------------------------------------------");
             Console.WriteLine("#####  Shield(s) Bag  #####");
             Console.WriteLine("----------------------------------------------------------------------------------------------");
-            if (GetShield().Count() != 0)
+
+            var unEquippedShield = GetShield().Where(p => p != EquippedShield).ToList();
+            if (unEquippedShield.Count() != 0)
             {
-                var shieldNumber = 1;
-                foreach (var shield in GetShield())
-                {   
-                    Console.WriteLine(String.Format("{0,3} | {1,-20} | {2,-15} |", shieldNumber, shield.Name, shield.Defense + " Defense"));
-                    shieldNumber += 1;
+                
+                for (var i = 0; i < unEquippedShield.Count(); i++)
+                {
+                    Console.WriteLine(String.Format("{0,3} | {1,-20} | {2,-15} |", i + 1, unEquippedShield[i].Name, unEquippedShield[i].Defense + " Defense"));
                 }
             }
             else
@@ -162,19 +162,21 @@ namespace OOP_RPG
 
         public void EquipWeapon(int index)
         {
-            if (GetWeapons().Count() != 0)
+            var unEquippedWeapon = GetWeapons().Where(p => p != EquippedWeapon).ToList();
+
+            if (unEquippedWeapon.Count() != 0)
             {
                 Console.WriteLine("----------------------------------------------------------------------------------------------"); 
 
-                if (index > GetWeapons().Count() || index < 0 )
+                if (index > unEquippedWeapon.Count() || index < 0 )
                 {
                     Console.WriteLine("Type corrent the weapon Id !");
                 }
                 else
                 {
-                    var weapon = GetWeapons()[index];
+                    var weapon = unEquippedWeapon[index];
                     this.EquippedWeapon = weapon;
-                    Console.WriteLine($"'{GetWeapons()[index].Name}' is equipped ");
+                    Console.WriteLine($"'{unEquippedWeapon[index].Name}' is equipped ");
                 }
           
                 Console.WriteLine("----------------------------------------------------------------------------------------------");
@@ -203,19 +205,20 @@ namespace OOP_RPG
 
         public void EquipArmor(int index)
         {
-            if (GetArmors().Count() != 0)
+            var unEquippedArmors = GetArmors().Where(p => p != EquippedArmor).ToList();
+            if (unEquippedArmors.Count() != 0)
             {
                 Console.WriteLine("----------------------------------------------------------------------------------------------");   
                 
-                if (index > GetArmors().Count() || index < 0 )
+                if (index > unEquippedArmors.Count() || index < 0 )
                 {
                     Console.WriteLine("Type corrent the armor Id !");
                 }
                 else
                 {
-                    var armor = GetArmors()[index];
+                    var armor = unEquippedArmors[index];
                     this.EquippedArmor = armor;
-                    Console.WriteLine($"'{GetArmors()[index].Name}' is equipped ");
+                    Console.WriteLine($"'{unEquippedArmors[index].Name}' is equipped ");
                    
                 }
                 
@@ -245,19 +248,20 @@ namespace OOP_RPG
 
         public void EquipShield(int index)
         {
-            if (GetShield().Count() != 0)
+            var unEquippedShield = GetShield().Where(p => p != EquippedShield).ToList();
+            if (unEquippedShield.Count() != 0)
             {
                 Console.WriteLine("----------------------------------------------------------------------------------------------");
 
-                if (index > GetShield().Count() || index < 0)
+                if (index > unEquippedShield.Count() || index < 0)
                 {
                     Console.WriteLine("Type corrent the shield Id !");
                 }
                 else
                 {
-                    var shield = GetShield()[index];
+                    var shield = unEquippedShield[index];
                     this.EquippedShield = shield;
-                    Console.WriteLine($"'{GetShield()[index].Name}' is equipped ");
+                    Console.WriteLine($"'{unEquippedShield[index].Name}' is equipped ");
 
                 }
 

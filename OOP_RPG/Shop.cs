@@ -204,11 +204,14 @@ namespace OOP_RPG
             Console.WriteLine(String.Format("{0,3} | {1,-20} | {2,-7} | {3,-15} | {4,-7} |", "ID", "Name", "Class", "Feature", "Price"));
             Console.WriteLine("----------------------------------------------------------------------------------------------");
 
-            if (Hero.HeroBag.Count() != 0)
+            var unEquippedHeroBag = Hero.HeroBag.Where(p => p != Hero.EquippedArmor && p != Hero.EquippedWeapon && p != Hero.EquippedShield).ToList();
+
+            if (unEquippedHeroBag.Count() != 0)
             {
-                for (var i = 0; i < Hero.HeroBag.Count(); i++)
+
+                for (var i = 0; i < unEquippedHeroBag.Count(); i++)
                 {
-                    Console.WriteLine(String.Format("{0,3} | {1,-20} | {2,-7} | {3,-15} | {4,-7} |", (i + 1), Hero.HeroBag[i].Name, Hero.HeroBag[i].GetClass(),  Hero.HeroBag[i].GetDescription(), Hero.HeroBag[i].Price + " Gold"));
+                    Console.WriteLine(String.Format("{0,3} | {1,-20} | {2,-7} | {3,-15} | {4,-7} |", (i + 1), unEquippedHeroBag[i].Name, unEquippedHeroBag[i].GetClass(), unEquippedHeroBag[i].GetDescription(), unEquippedHeroBag[i].Price + " Gold"));
                 }
             }
             else
@@ -224,45 +227,20 @@ namespace OOP_RPG
             var KeyInputNumber = Hero.GetUserInputNumber();
 
 
-            if (KeyInputNumber > Hero.HeroBag.Count() || KeyInputNumber <= 0)
+            if (KeyInputNumber > unEquippedHeroBag.Count() || KeyInputNumber <= 0)
             {
                 Console.WriteLine("# Select the corrent Item ID : ");
             }
             else
             {                
                 var itemIndex = KeyInputNumber - 1;
-                var item = Hero.HeroBag.ElementAtOrDefault(itemIndex);
+                var item = unEquippedHeroBag.ElementAtOrDefault(itemIndex);
                 //The claculate sell price of item
-                Hero.GoldCoin = Hero.GoldCoin + (Convert.ToInt32(Hero.HeroBag[itemIndex].Price * 0.5));
+                Hero.GoldCoin = Hero.GoldCoin + (Convert.ToInt32(unEquippedHeroBag[itemIndex].Price * 0.5));
 
-                //Check to remove the EquippedItems when it sells  
-                if (Hero.EquippedWeapon != null)
-                {
-                    if (Hero.EquippedWeapon.Name == Hero.HeroBag[itemIndex].Name)
-                    {
-                        Hero.EquippedWeapon = null;
-                    }
-                }
-
-                if (Hero.EquippedArmor != null)
-                {
-                    if (Hero.EquippedArmor.Name == Hero.HeroBag[itemIndex].Name)
-                    {
-                        Hero.EquippedArmor = null;
-                    }
-                }
-
-                if (Hero.EquippedShield != null)
-                {
-                    if (Hero.EquippedShield.Name == Hero.HeroBag[itemIndex].Name)
-                    {
-                        Hero.EquippedShield = null;
-                    }
-                }
-
-                Console.WriteLine($"'{Hero.HeroBag[itemIndex].Name}' was sold, youn earned {Convert.ToInt32(Hero.HeroBag[itemIndex].Price * discountRate)} gold ");
+                Console.WriteLine($"'{unEquippedHeroBag[itemIndex].Name}' was sold, youn earned {Convert.ToInt32(unEquippedHeroBag[itemIndex].Price * discountRate)} gold ");
                 Console.WriteLine("----------------------------------------------------------------------------------------------");
-                Hero.HeroBag.Remove(Hero.HeroBag[itemIndex]);          
+                Hero.HeroBag.Remove(unEquippedHeroBag[itemIndex]);          
             }
         }        
     }

@@ -123,12 +123,11 @@ namespace OOP_RPG
             //Equip Weapon
             if (KeyInput == "1")
             {
-
-                var weapons = Hero.GetWeapons();
-
-                for (var i = 0; i < weapons.Count(); i++)
+                var unEquippedWeapons = Hero.GetWeapons().Where(p => p != Hero.EquippedWeapon).ToList();
+  
+                for (var i = 0; i < unEquippedWeapons.Count(); i++)
                 {
-                    Console.WriteLine($"{i + 1} - {weapons[i].Name}");
+                    Console.WriteLine($"{i + 1} - {unEquippedWeapons[i].Name}");
                 }
 
                 Console.Write("Selet the weapon ID : ");
@@ -145,11 +144,11 @@ namespace OOP_RPG
 
             //Equip Armor
             else if (KeyInput == "3")
-            {
-                var armors = Hero.GetArmors();
-                for (var i = 0; i < armors.Count(); i++)
+            {  
+                var unEquippedArmors = Hero.GetArmors().Where(p => p != Hero.EquippedArmor).ToList();
+                for (var i = 0; i < unEquippedArmors.Count(); i++)
                 {
-                    Console.WriteLine($"{i + 1} - {armors[i].Name}");
+                    Console.WriteLine($"{i + 1} - {unEquippedArmors[i].Name}");
                 }
                 Console.Write("Selet the armor ID : ");
                 var index = Hero.GetUserInputNumber() - 1;
@@ -165,11 +164,11 @@ namespace OOP_RPG
             //Equip Shield
             else if (KeyInput == "5")
             {
-                var shields = Hero.GetShield();
+                var unEquippedShield = Hero.GetShield().Where(p => p != Hero.EquippedShield).ToList();
 
-                for (var i = 0; i < shields.Count(); i++)
+                for (var i = 0; i < unEquippedShield.Count(); i++)
                 {
-                    Console.WriteLine($"{i + 1} - {shields[i].Name}");
+                    Console.WriteLine($"{i + 1} - {unEquippedShield[i].Name}");
                 }
 
                 Console.Write("Selet the shield ID : ");

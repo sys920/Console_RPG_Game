@@ -5,11 +5,12 @@ using System.Linq;
 namespace OOP_RPG
 {
     public class Fight
-    {      
+    {        
         private List<Monster> Monsters { get; set; }
         private Hero Hero { get; set; }
         private Monster Enemy { get; set; }
         private AchievementManager AchievementManager { get; set; }
+        
        
         public Fight(Hero hero, Monster enemy, AchievementManager achievementManager)
         {
@@ -72,8 +73,7 @@ namespace OOP_RPG
                 else if (input == "3")
                 {
                     RunAway();
-                    //After hero runaway frome the game get out of this while Loop
-                    break;                 
+                    //After hero runaway frome the game get out of this while Loop                       
                 }               
             }
 
@@ -231,7 +231,7 @@ namespace OOP_RPG
         }
 
         private void RunAway()
-        {     
+        {
             Random randomNum = new Random();
             double trueProbability = 1.0;     
             
@@ -269,12 +269,19 @@ namespace OOP_RPG
 
                 if (randomNum.NextDouble() < trueProbability)
                 {
-                    Console.WriteLine($"You ran away from the monster successfully!");
+                    Console.WriteLine($"You ran away from the Easy monster successfully!");
+                    Console.WriteLine("----------------------------------------------------------------------------------------------");
+                    Console.WriteLine("Press any key to return to main menu.");
+                    Console.ReadKey();
+                    Enemy.CurrentHP = 0;
+
                 }
                 else
                 {
                     Console.WriteLine($"Sorry, you failed to run away, you got {finalDamage} damage(s)");
                     Hero.CurrentHP -= finalDamage;
+                    MonsterTurn();
+
                 } 
                 
             }
@@ -284,26 +291,37 @@ namespace OOP_RPG
                 trueProbability = 0.25;
                 if (randomNum.NextDouble() < trueProbability)
                 {
-                    Console.WriteLine($"You ran away from the monster successfully!");
+                    Console.WriteLine($"You ran away from the Medium monster successfully!");
+                    Console.WriteLine("----------------------------------------------------------------------------------------------");
+                    Console.WriteLine("Press any key to return to main menu.");
+                    Console.ReadKey();
+                    Enemy.CurrentHP = 0;
                 }
                 else
                 {
                     Console.WriteLine($"Sorry, you failed to run away, you got {finalDamage} damage(s)");
                     Hero.CurrentHP -= finalDamage;
+                    MonsterTurn();
                 }
             }
             else if (Enemy.Diffculty == MonsterLevel.Hard)
             {     
-                //25% return true
+                //5% return true
                 trueProbability = 0.05;
                 if (randomNum.NextDouble() < trueProbability)
                 {
-                    Console.WriteLine($"You ran away from the monster successfully!");
+                    Console.WriteLine($"You ran away from the Hard monster successfully!");
+                    Console.WriteLine("----------------------------------------------------------------------------------------------");
+                    Console.WriteLine("Press any key to return to main menu.");
+                    Console.ReadKey();
+                    Enemy.CurrentHP = 0;
+                    
                 }
                 else
                 {
                     Console.WriteLine($"Sorry, you failed to run away, you got {finalDamage} damage(s)");
                     Hero.CurrentHP -= finalDamage;
+                    MonsterTurn();
                 }
 
             }
@@ -312,9 +330,6 @@ namespace OOP_RPG
                 throw new NotImplementedException($"Diffculty not implement");
             }
 
-            Console.WriteLine("----------------------------------------------------------------------------------------------");
-            Console.WriteLine("Press any key to return to main menu.");
-            Console.ReadKey();
         }        
     }
 }
