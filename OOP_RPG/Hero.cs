@@ -36,9 +36,9 @@ namespace OOP_RPG
             //Balanced Hro
             Strength = 9;
             Defense = 11;
-            OriginalHP = 3000;
-            CurrentHP = 3000;
-            GoldCoin = 1000;
+            OriginalHP = 30;
+            CurrentHP = 30;
+            GoldCoin = 10;
   
             //Test Hero 
             //Strength = 50;

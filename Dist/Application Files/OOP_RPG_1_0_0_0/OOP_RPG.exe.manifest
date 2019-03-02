@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
+  <asmv1:assemblyIdentity name="OOP_RPG.exe" version="1.0.0.0" publicKeyToken="8e1406471ea9386f" language="neutral" processorArchitecture="msil" type="win32" />
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="OOP_RPG" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+    <commandLine file="OOP_RPG.exe" parameters="" />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!--
+          UAC Manifest Options
+          If you want to change the Windows User Account Control level replace the 
+          requestedExecutionLevel node with one of the following.
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+         If you want to utilize File and Registry Virtualization for backward 
+         compatibility then delete the requestedExecutionLevel node.
+    -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="OOP_RPG.exe" size="42904">
+      <assemblyIdentity name="OOP_RPG" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>G3iA+KcGB54pDIBT20FHFXYob+2eONDuutlO4zlCoes=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="OOP_RPG.exe.config" size="184">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>jWVCngsqgsEdPtxOoE7SAK7f6h1++LmE6IqOl8/1R3A=</dsig:DigestValue>
+    </hash>
+  </file>
+<publisherIdentity name="CN=MITT\SD49" issuerKeyHash="a61371c80a967be081446858602065f214171003" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>8b0jTGBa3r0aytUjr4RyJSto2/hVYM0tDYqwvoqRpuc=</DigestValue></Reference></SignedInfo><SignatureValue>grOqa7I8SqNxGXN5LbofuE/U1zzkmg5216UBw9FGsuCE4K3YDBNaj1RgOytjxAHa73d013G7iZd4mZKM3cUgnyN2nkpl/4nr4B1epTlZIwWOLP2NlaOk63XE+dD6LVLusDtqa/nMXx3mLMUrJ/fi8tiru/iVSiJa9ASmZsG38qY=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>oPo/X8UFikjDK/BeBAL/JyGUwbaB+sBoCfOAcduCxUExj6hWThqD3CY6J/pxPjeJSGJ8AmhrA4KH7Id7FOd42wqVTsOVC+rvNMG4l7vhSREwLiT0SlMWZTjjrg6duLsW1FQIEZ5uCvI1kheHTHO8yDPJzivlDbeisFcS2And/Fk=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="e7a6918abeb08a0d2dcd6055f8db682b257284af23d5ca1abdde5a604c23bdf1" Description="" Url=""><as:assemblyIdentity name="OOP_RPG.exe" version="1.0.0.0" publicKeyToken="8e1406471ea9386f" language="neutral" processorArchitecture="msil" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=MITT\SD49</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>FeF9gkPd04WUtDoA4Fd7NSL9OqXANByuQKVN/2j7SXs=</DigestValue></Reference></SignedInfo><SignatureValue>ao9PRJjLOF27aRtSX+s73+kI3AXtLIGejn1PG+xrOpXHpQgweCawsA2tpCsXM+SLb1smtUF+PRTDWCdNHe+NVxGuBh4nERDiKug/hPtGpl3HaXOZikyXixB1ZLEwZxzFi8t/33iZMVZEycXuaIYYlHm+y9js3Gx42D+5uKQLJus=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>oPo/X8UFikjDK/BeBAL/JyGUwbaB+sBoCfOAcduCxUExj6hWThqD3CY6J/pxPjeJSGJ8AmhrA4KH7Id7FOd42wqVTsOVC+rvNMG4l7vhSREwLiT0SlMWZTjjrg6duLsW1FQIEZ5uCvI1kheHTHO8yDPJzivlDbeisFcS2And/Fk=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIBvTCCASagAwIBAgIQbTZ++dsQEKxGWcdrbfyyPDANBgkqhkiG9w0BAQsFADAdMRswGQYDVQQDHhIATQBJAFQAVABcAFMARAA0ADkwHhcNMTkwMzAyMDUyNTAwWhcNMjAwMzAxMTEyNTAwWjAdMRswGQYDVQQDHhIATQBJAFQAVABcAFMARAA0ADkwgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAKD6P1/FBYpIwyvwXgQC/ychlMG2gfrAaAnzgHHbgsVBMY+oVk4ag9wmOif6cT43iUhifAJoawOCh+yHexTneNsKlU7DlQvq7zTBuJe74UkRMC4k9EpTFmU4464Onbi7FtRUCBGebgryNZIXh0xzvMgzyc4r5Q23orBXEtgJ3fxZAgMBAAEwDQYJKoZIhvcNAQELBQADgYEAKL20aaO9LOR7OOzOAiWRvQ30iue+Ar82xrZaXH9mYPtXZopXXfCiOaMhSI8q+sLNmJLhQdke4yny/65XwmXReVLseuWTwcPzeO+nE2ri+SRbyD6ByjW9rkhfbtI7P2NgAXZGt/gSZJwm21m5rSCgGILbj73q9LvTXL6iUgBKpoo=</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>

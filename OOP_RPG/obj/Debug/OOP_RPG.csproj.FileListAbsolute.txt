@@ -12,3 +12,7 @@ C:\Users\SD49\Documents\SD 180 Document_MVC\Assignment\OOP_RPG-master\OOP_RPG\ob
 C:\Users\SD49\Documents\SD 180 Document_MVC\Assignment\OOP_RPG-master\OOP_RPG\obj\Debug\OOP_RPG.csproj.CoreCompileInputs.cache
 C:\Users\SD49\Documents\SD 180 Document_MVC\Assignment\OOP_RPG-master\OOP_RPG\obj\Debug\OOP_RPG.exe
 C:\Users\SD49\Documents\SD 180 Document_MVC\Assignment\OOP_RPG-master\OOP_RPG\obj\Debug\OOP_RPG.pdb
+C:\Users\SD49\Documents\SD 180 Document_MVC\Assignment\OOP_RPG-master\OOP_RPG\bin\Debug\OOP_RPG.exe.manifest
+C:\Users\SD49\Documents\SD 180 Document_MVC\Assignment\OOP_RPG-master\OOP_RPG\bin\Debug\OOP_RPG.application
+C:\Users\SD49\Documents\SD 180 Document_MVC\Assignment\OOP_RPG-master\OOP_RPG\obj\Debug\OOP_RPG.exe.manifest
+C:\Users\SD49\Documents\SD 180 Document_MVC\Assignment\OOP_RPG-master\OOP_RPG\obj\Debug\OOP_RPG.application
