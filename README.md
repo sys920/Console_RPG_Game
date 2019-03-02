@@ -1,5 +1,5 @@
 # Console_RPG_Game
-Enjoy old comsole RPG game, make your hero more stronger through buying items each fight. 
+Enjoy old console RPG game, make your hero more stronger through buying items each fight. 
 -This Game has Hero and Monster, gives some functionality fight, buy items(Swords, Armors, Shields, Potions) and there are some reward for 
 winning game. also this game is turn base game, when your hero win the game, get point and great achievement. 
 Don't fail the fight. Have fun !!! 
