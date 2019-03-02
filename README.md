@@ -6,7 +6,7 @@ Don't fail the fight. Have fun !!!
 - C# Console program practise using Linq, Interface, List base on OOP. 
 
 # Code
-- Dist :  setup.exst  you can install and run to play this game
+- Dist :  setup.exe  You can install and run to play this game
 
 - OOP_RPG : 
 - Program.cs : Make new game  
