@@ -6,33 +6,33 @@ Don't fail the fight. Have fun !!!
 - C# Console program practise using Linq, Interface, List base on OOP. 
 
 # Code
-- Dist :  setup.exst  you can install and run to play this game
-- OOP_RPG : 
-Program.cs : Make new game  
-game.cs : main menu for game 
-Hero.cs : Most function run here 
+Dist :  setup.exst  you can install and run to play this game
+OOP_RPG : 
+- Program.cs : Make new game  
+- game.cs : main menu for game
+- Hero.cs : Most function run here 
    
-Achievement.cs : Achievement class 
-IAchievement.cs : interface class for achievement 
-AchievementManager.cs : Managing Achievement
-Quest.cs : Just show what the Achievement is inside of the game  
+- Achievement.cs : Achievement class 
+- IAchievement.cs : interface class for achievement 
+- AchievementManager.cs : Managing Achievement
+- Quest.cs : Just show what the Achievement is inside of the game  
  
-Hero.cs : Hero character class
-Monster.cs : Enemy character class and generate monstesrs 
-Fight.cs : main for fighting between Hero and Reandom Monster
-Shop.cs.cs : buying, selling items
+- Hero.cs : Hero character class
+- Monster.cs : Enemy character class and generate monstesrs 
+- Fight.cs : main for fighting between Hero and Reandom Monster
+- Shop.cs.cs : buying, selling items
 
-MonsterLevel.cs : using enum class for Monster Level
-MonsterSelector.cs : selector monster randomly each stage
-MonsterofTheDay.cs  : selector monste base on weekday 
+- MonsterLevel.cs : using enum class for Monster Level
+- MonsterSelector.cs : selector monster randomly each stage
+- MonsterofTheDay.cs  : selector monste base on weekday 
 
-Armor.cs : Armor item class for strenth 
-IArmor.cs : interface class for armor
-Weapon.cs : weapon item class for defense  
-IWeapon.cs : interface class for weapon 
-Shield.cs : Shield item class for defense
-IShield.cs : interface class for Shield 
-Potion.cs : items for health for hero
+- Armor.cs : Armor item class for strenth 
+- IArmor.cs : interface class for armor
+- Weapon.cs : weapon item class for defense  
+- IWeapon.cs : interface class for weapon 
+- Shield.cs : Shield item class for defense
+- IShield.cs : interface class for Shield 
+- Potion.cs : items for health for hero
 
 # Requirement 
 - The hero to fight only a range of 5 monsters per day based on the weekday. A monster should be selected randomly every time a new fight starts
